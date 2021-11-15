@@ -26,8 +26,7 @@
 
 package open.commons.spring.elastic.configuration.elasticsearch;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
@@ -37,7 +36,8 @@ import org.springframework.util.Assert;
  * @version 0.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public abstract class ElasticsearchClientBuilderConfiguration<E extends EndpointBuilderConfiguration, S extends SccBuilderConfiguration, T extends TccBuilderConfiguration> {
+public abstract class ElasticsearchClientBuilderConfiguration<E extends EndpointBuilderConfiguration, S extends SccBuilderConfiguration, T extends TccBuilderConfiguration>
+        implements InitializingBean {
 
     protected E endpoint;
     protected S secure;
@@ -58,6 +58,20 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ElasticsearchClientBuilderConfiguration() {
+    }
+
+    /**
+     *
+     * @since 2021. 11. 15.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     *
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.notNull(this.endpoint, "Endpoint 정보는 반드시 설정되어야 합니다.");
+        Assert.notNull(this.terminal, "Terminal Client 정보는 반드시 설정되어야 합니다.");
     }
 
     /**
@@ -127,12 +141,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
 
     public T getTerminal() {
         return terminal;
-    }
-
-    @PostConstruct
-    public void init() {
-        Assert.notNull(this.endpoint, "Endpoint 정보는 반드시 설정되어야 합니다.");
-        Assert.notNull(this.terminal, "Terminal Client 정보는 반드시 설정되어야 합니다.");
     }
 
     /**

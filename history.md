@@ -1,4 +1,7 @@
 [2021/11/15]
+- Modify
+  + open.commons.spring.elastic.configurations.elasticsearch.ElasticsearchClientConfiguration
+    + InitializingBean 구현 추가
 - New
   + open.commons.spring.elastic.utils.ConfigurationUtils
 - Modify
