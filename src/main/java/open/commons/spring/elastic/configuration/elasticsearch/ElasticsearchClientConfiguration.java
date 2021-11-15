@@ -131,8 +131,8 @@ public abstract class ElasticsearchClientConfiguration<E extends EndpointBuilder
 
     @PostConstruct
     public void init() {
-        Assert.isNull(this.endpoint, "Endpoint 정보는 반드시 설정되어야 합니다.");
-        Assert.isNull(this.terminal, "Terminal Client 정보는 반드시 설정되어야 합니다.");
+        Assert.notNull(this.endpoint, "Endpoint 정보는 반드시 설정되어야 합니다.");
+        Assert.notNull(this.terminal, "Terminal Client 정보는 반드시 설정되어야 합니다.");
     }
 
     /**
