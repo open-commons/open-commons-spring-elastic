@@ -42,7 +42,7 @@ import open.commons.utils.StringUtils;
  * 
  * @see {@link TerminalClientConfigurationBuilder}
  */
-public class TerminalClientConfiguration {
+public class TccBuilderConfiguration {
 
     /** @see TerminalClientConfigurationBuilder#withBasicAuth(String, String)'s <b><code>username</code></b> */
     protected String username;
@@ -79,7 +79,7 @@ public class TerminalClientConfiguration {
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public TerminalClientConfiguration() {
+    public TccBuilderConfiguration() {
     }
 
     /**
@@ -415,7 +415,7 @@ public class TerminalClientConfiguration {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("TerminalClientConfiguration [username=");
+        builder.append("TccBuilderConfiguration [username=");
         builder.append(username);
         builder.append(", password=");
         builder.append(password);

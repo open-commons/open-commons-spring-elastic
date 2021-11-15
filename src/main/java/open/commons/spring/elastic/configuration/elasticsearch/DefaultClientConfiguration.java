@@ -32,7 +32,7 @@ package open.commons.spring.elastic.configuration.elasticsearch;
  * @version 0.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class DefaultClientConfiguration extends ElasticsearchClientConfiguration<EndpointConfiguration, SecureClientConfiguration, TerminalClientConfiguration> {
+public class DefaultClientConfiguration extends ElasticsearchClientConfiguration<EndpointBuilderConfiguration, SccBuilderConfiguration, TccBuilderConfiguration> {
 
     /**
      * <br>
@@ -58,10 +58,10 @@ public class DefaultClientConfiguration extends ElasticsearchClientConfiguration
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
-     * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientConfiguration#setEndpoint(open.commons.spring.elastic.configuration.elasticsearch.EndpointConfiguration)
+     * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientConfiguration#setEndpoint(open.commons.spring.elastic.configuration.elasticsearch.EndpointBuilderConfiguration)
      */
     @Override
-    public void setEndpoint(EndpointConfiguration endpoint) {
+    public void setEndpoint(EndpointBuilderConfiguration endpoint) {
         this.endpoint = endpoint;
     }
 
@@ -71,10 +71,10 @@ public class DefaultClientConfiguration extends ElasticsearchClientConfiguration
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
-     * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientConfiguration#setSecure(open.commons.spring.elastic.configuration.elasticsearch.SecureClientConfiguration)
+     * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientConfiguration#setSecure(open.commons.spring.elastic.configuration.elasticsearch.SccBuilderConfiguration)
      */
     @Override
-    public void setSecure(SecureClientConfiguration secure) {
+    public void setSecure(SccBuilderConfiguration secure) {
         this.secure = secure;
     }
 
@@ -84,10 +84,10 @@ public class DefaultClientConfiguration extends ElasticsearchClientConfiguration
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
-     * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientConfiguration#setTerminal(open.commons.spring.elastic.configuration.elasticsearch.TerminalClientConfiguration)
+     * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientConfiguration#setTerminal(open.commons.spring.elastic.configuration.elasticsearch.TccBuilderConfiguration)
      */
     @Override
-    public void setTerminal(TerminalClientConfiguration terminal) {
+    public void setTerminal(TccBuilderConfiguration terminal) {
         this.terminal = terminal;
     }
 

@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @version 0.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public abstract class ElasticsearchClientConfiguration<E extends EndpointConfiguration, S extends SecureClientConfiguration, T extends TerminalClientConfiguration> {
+public abstract class ElasticsearchClientConfiguration<E extends EndpointBuilderConfiguration, S extends SccBuilderConfiguration, T extends TccBuilderConfiguration> {
 
     protected E endpoint;
     protected S secure;

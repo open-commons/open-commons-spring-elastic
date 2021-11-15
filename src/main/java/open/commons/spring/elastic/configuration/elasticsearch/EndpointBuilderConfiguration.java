@@ -43,7 +43,7 @@ import open.commons.utils.NetUtils;
  * 
  * @see {@link ClientConfigurationBuilderWithRequiredEndpoint}
  */
-public class EndpointConfiguration {
+public class EndpointBuilderConfiguration {
 
     /**
      * Elasticsearch 서버 접속 정보.<br>
@@ -95,7 +95,7 @@ public class EndpointConfiguration {
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public EndpointConfiguration() {
+    public EndpointBuilderConfiguration() {
     }
 
     /**

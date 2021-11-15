@@ -29,7 +29,7 @@ package open.commons.spring.elastic.configuration.elasticsearch;
 import org.springframework.data.elasticsearch.client.ClientConfiguration.MaybeSecureClientConfigurationBuilder;
 
 /**
- * 보안 클라이언트 설정 정보.
+ * 보안 클라이언트 빌더 설정 정보
  * 
  * @since 2021. 11. 15.
  * @version 0.1.0
@@ -37,7 +37,7 @@ import org.springframework.data.elasticsearch.client.ClientConfiguration.MaybeSe
  * 
  * @see MaybeSecureClientConfigurationBuilder
  */
-public class SecureClientConfiguration {
+public class SccBuilderConfiguration {
 
     /** @see MaybeSecureClientConfigurationBuilder#usingSsl() */
     private boolean ssl;
@@ -57,7 +57,7 @@ public class SecureClientConfiguration {
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public SecureClientConfiguration() {
+    public SccBuilderConfiguration() {
     }
 
     /**
@@ -117,7 +117,7 @@ public class SecureClientConfiguration {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("SecureClientConfiguration [ssl=");
+        builder.append("SccBuilderConfiguration [ssl=");
         builder.append(ssl);
         builder.append("]");
         return builder.toString();
