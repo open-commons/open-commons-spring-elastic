@@ -109,7 +109,7 @@ public class SccBuilderConfiguration {
     /**
      *
      * @since 2021. 11. 15.
-     * @version _._._
+     * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()

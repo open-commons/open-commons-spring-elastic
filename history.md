@@ -1,4 +1,6 @@
 [2021/11/15]
+- New
+  + open.commons.spring.elastic.utils.ConfigurationUtils
 - Modify
   + open.commons.spring.elastic.configurations.elasticsearch
     + EndpointBuilderConfiguration.java
