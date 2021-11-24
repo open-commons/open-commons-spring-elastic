@@ -97,7 +97,7 @@ public class ConfigurationUtils {
             builder = builder.withBasicAuth(tbc.getUsername(), tbc.getPassword());
         }
 
-        builder = setConfiguration(tbc.getConnecTimeout(), builder::withConnectTimeout, builder);
+        builder = setConfiguration(tbc.getConnectTimeout(), builder::withConnectTimeout, builder);
         builder = setConfiguration(tbc.getDefaultHeaders(), builder::withDefaultHeaders, builder);
         builder = setConfiguration(tbc.getPathPrefix(), builder::withPathPrefix, builder);
         builder = setConfiguration(tbc.getProxy(), builder::withProxy, builder);

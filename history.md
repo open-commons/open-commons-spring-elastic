@@ -1,3 +1,8 @@
+[2021/11/245]
+- Bugfix
+  + open.commons.spring.elastic.configuration.elasticsearch.TccBuilderConfiguration: 속성 오타 수정
+    + connecTimeout -> connectTimeout
+
 [2021/11/15]
 - Modify
   + open.commons.spring.elastic.configurations.elasticsearch.ElasticsearchClientConfiguration

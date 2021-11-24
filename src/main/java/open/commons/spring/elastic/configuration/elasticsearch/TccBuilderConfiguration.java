@@ -50,7 +50,7 @@ public class TccBuilderConfiguration {
     protected String password;
 
     /** @see TerminalClientConfigurationBuilder#withConnectTimeout(Duration) */
-    protected Duration connecTimeout;
+    protected Duration connectTimeout;
 
     /** @see TerminalClientConfigurationBuilder#withDefaultHeaders(HttpHeaders) */
     protected HttpHeaders defaultHeaders;
@@ -92,17 +92,17 @@ public class TccBuilderConfiguration {
      * 2021. 11. 15.		박준홍			최초 작성
      * </pre>
      * 
-     * @return the connecTimeout
+     * @return the connectTimeout
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
-     * @see #connecTimeout
+     * @see #connectTimeout
      */
 
-    public Duration getConnecTimeout() {
-        return connecTimeout;
+    public Duration getConnectTimeout() {
+        return connectTimeout;
     }
 
     /**
@@ -253,17 +253,17 @@ public class TccBuilderConfiguration {
      * 2021. 11. 15.		박준홍			최초 작성
      * </pre>
      *
-     * @param connecTimeout
-     *            the connecTimeout to set
+     * @param connectTimeout
+     *            the connectTimeout to set
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
-     * @see #connecTimeout
+     * @see #connectTimeout
      */
-    public void setConnecTimeout(Duration connecTimeout) {
-        this.connecTimeout = connecTimeout;
+    public void setConnectTimeout(Duration connecTimeout) {
+        this.connectTimeout = connecTimeout;
     }
 
     /**
@@ -419,8 +419,8 @@ public class TccBuilderConfiguration {
         builder.append(username);
         builder.append(", password=");
         builder.append(password);
-        builder.append(", connecTimeout=");
-        builder.append(connecTimeout);
+        builder.append(", connectTimeout=");
+        builder.append(connectTimeout);
         builder.append(", defaultHeaders=");
         builder.append(defaultHeaders);
         builder.append(", pathPrefix=");
