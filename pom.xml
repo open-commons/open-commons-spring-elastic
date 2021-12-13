@@ -17,7 +17,7 @@
 
 	<properties>
 		<!-- >>> begin: plugin dependencies -->
-		<build.finalName>open-commons-spring-oshi-${project.version}</build.finalName>
+		<build.finalName>open-commons-spring-elastic-${project.version}</build.finalName>
 
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
@@ -34,7 +34,7 @@
 		<!-- >>> begin: dependencies -->
 		<spring-core.version>[5.3.9,)</spring-core.version>
 		<spring-boot.version>[2.5.3]</spring-boot.version>
-		<slf4j-api.version>1.7.26</slf4j-api.version>
+		<slf4j-api.version>1.7.32</slf4j-api.version>
 		<reflections.version>0.9.11</reflections.version>
 		<httpclient.version>[4.5.13,)</httpclient.version>
 		<spring-boot-starter-data-elasticsearch.version>[2.5.6,)</spring-boot-starter-data-elasticsearch.version>
