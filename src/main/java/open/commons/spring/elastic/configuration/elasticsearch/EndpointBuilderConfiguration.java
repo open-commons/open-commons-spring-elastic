@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.data.elasticsearch.client.ClientConfiguration.ClientConfigurationBuilderWithRequiredEndpoint;
 
-import open.commons.utils.NetUtils;
+import open.commons.core.utils.NetUtils;
 
 /**
  * Elasticsearch 연결 정보.

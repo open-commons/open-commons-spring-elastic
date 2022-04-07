@@ -31,7 +31,7 @@ import java.time.Duration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration.TerminalClientConfigurationBuilder;
 import org.springframework.http.HttpHeaders;
 
-import open.commons.utils.StringUtils;
+import open.commons.core.utils.StringUtils;
 
 /**
  * 기본 클라이언트 설정 정보.

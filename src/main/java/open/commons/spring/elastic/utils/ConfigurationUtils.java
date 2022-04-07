@@ -32,11 +32,11 @@ import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration.MaybeSecureClientConfigurationBuilder;
 import org.springframework.data.elasticsearch.client.ClientConfiguration.TerminalClientConfigurationBuilder;
 
+import open.commons.core.utils.FunctionUtils;
 import open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientBuilderConfiguration;
 import open.commons.spring.elastic.configuration.elasticsearch.EndpointBuilderConfiguration;
 import open.commons.spring.elastic.configuration.elasticsearch.SccBuilderConfiguration;
 import open.commons.spring.elastic.configuration.elasticsearch.TccBuilderConfiguration;
-import open.commons.utils.FunctionUtils;
 
 /**
  * 설정 편의 기능을 제공하는 클래스.
