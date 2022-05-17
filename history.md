@@ -1,3 +1,7 @@
+[2022/05/17]
+- Add
+  + open.commons.spring.elastic.service.AbstractElasticsearchService
+
 [2022/04/07]
 - Release: 0.2.0-SNAPSHOT
 - Tag: 0.1.0
