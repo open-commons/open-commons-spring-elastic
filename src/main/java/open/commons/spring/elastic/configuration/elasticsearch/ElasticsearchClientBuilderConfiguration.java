@@ -30,7 +30,30 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * Elasticsearch 클라이언트 설정 정보.
+ * Elasticsearch 클라이언트 설정 정보.<br>
+ * 
+ * Yaml 예졔
+ *
+ * <pre>
+ * elasticsearch-client-configuration:
+  endpoint:
+    # 데이터 포맷: {host}:{port}
+    connections:
+      - es.example.com:9200
+  secure:
+    ssl: false
+  terminal:
+    username: 
+    password:
+    # java.util.Duration 
+    connect-timeout: PT10S
+    default-headers:
+      content-type: application/json
+    path-prefix:
+    proxy:
+    # java.util.Duration 
+    socket-timeout: PT10M
+ * </pre>
  * 
  * @since 2021. 11. 15.
  * @version 0.1.0

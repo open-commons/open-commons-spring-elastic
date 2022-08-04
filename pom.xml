@@ -33,11 +33,11 @@
 
 		<!-- >>> begin: dependencies -->
 		<spring-core.version>[5.3.9,)</spring-core.version>
-		<spring-boot.version>[2.5.3]</spring-boot.version>
+		<spring-boot.version>2.5.3</spring-boot.version>
 		<slf4j-api.version>1.7.32</slf4j-api.version>
 		<reflections.version>0.9.11</reflections.version>
 		<httpclient.version>[4.5.13,)</httpclient.version>
-		<spring-boot-starter-data-elasticsearch.version>[2.5.6,)</spring-boot-starter-data-elasticsearch.version>
+		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
 
 		<open-commons-core.version>2.0.0-SNAPSHOT</open-commons-core.version>
 		<open-commons-spring-web.version>0.5.0-SNAPSHOT</open-commons-spring-web.version>
