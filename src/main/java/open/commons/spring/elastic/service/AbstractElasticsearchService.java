@@ -105,7 +105,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    protected <T> List<IndexQuery> createBulk(@NotEmpty Collection<T> data) {
+    public <T> List<IndexQuery> createBulk(@NotEmpty Collection<T> data) {
         return data.parallelStream().map(d -> {
             return new IndexQueryBuilder() //
                     .withObject(d)//
@@ -133,7 +133,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    protected <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data, Class<T> type) {
+    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data, Class<T> type) {
         Supplier<Result<List<IndexedObjectInformation>>> action = () -> {
             try {
                 ElasticsearchRestTemplate esOp = getElasticsearchOperations();
@@ -165,7 +165,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    protected ByQueryResponse delete(Query query, Class<?> clazz) {
+    public ByQueryResponse delete(Query query, Class<?> clazz) {
         ElasticsearchRestTemplate esOp = getElasticsearchOperations();
         return esOp.delete(query, clazz);
     }
@@ -186,7 +186,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    protected ElasticsearchRestTemplate getElasticsearchOperations() {
+    public ElasticsearchRestTemplate getElasticsearchOperations() {
         return new ElasticsearchRestTemplate(this.highLevelClient);
     }
 
@@ -209,7 +209,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    protected <E> List<E> search(Query query, Class<E> type) {
+    public <E> List<E> search(Query query, Class<E> type) {
         SearchHits<E> searchHits = searchHits(query, type);
         return searchHits.stream() //
                 .map(hit -> hit.getContent())//
@@ -235,7 +235,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    protected <E> SearchHits<E> searchHits(Query query, Class<E> type) {
+    public <E> SearchHits<E> searchHits(Query query, Class<E> type) {
         ElasticsearchRestTemplate esOp = getElasticsearchOperations();
         return esOp.search(query, type);
     }
