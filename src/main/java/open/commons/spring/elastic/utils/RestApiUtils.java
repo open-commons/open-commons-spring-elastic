@@ -26,6 +26,7 @@
 
 package open.commons.spring.elastic.utils;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -219,7 +220,7 @@ public class RestApiUtils {
      */
     public static String toIndexBulkString(Object obj) {
         // #1. header
-        String header = "{\"index\":{}}\n";
+        String header = "{\"index\":{}}" + File.separator;
 
         // #2. 데이터 생성
         @SuppressWarnings("unchecked")
@@ -230,7 +231,7 @@ public class RestApiUtils {
                 .collect(Collectors.joining(","));
 
         // #3. body
-        String body = String.join("", header, "{", data, "}\n");
+        String body = String.join("", header, "{", data, "}", File.separator, File.separator);
 
         return body;
     }
