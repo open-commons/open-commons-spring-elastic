@@ -1,3 +1,7 @@
+[2022/09/02]
+- New
+  + open.commons.spring.elastic.utils.RestApiUtils
+
 [2022/05/17]
 - Add
   + open.commons.spring.elastic.service.AbstractElasticsearchService
