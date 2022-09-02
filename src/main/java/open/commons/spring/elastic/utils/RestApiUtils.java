@@ -219,7 +219,7 @@ public class RestApiUtils {
      */
     public static String toIndexBulkString(Object obj) {
         // #1. header
-        String header = "{\"index\":{}}\n";
+        String header = "{\"index\":{}}" + System.lineSeparator();
 
         // #2. 데이터 생성
         @SuppressWarnings("unchecked")
@@ -230,7 +230,7 @@ public class RestApiUtils {
                 .collect(Collectors.joining(","));
 
         // #3. body
-        String body = String.join("", header, "{", data, "}\n");
+        String body = String.join("", header, "{", data, "}", System.lineSeparator());
 
         return body;
     }
