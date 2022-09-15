@@ -209,7 +209,7 @@ public class RestApiUtils {
      *
      * @param operation
      * @param obj
-     * @return
+     * @return JSON 문자열. 단 데이터가 존재하지 않는 경우 <code>null</code>을 제공합니다.
      *
      * @since 2022. 9. 2.
      * @version 0.2.0
@@ -228,6 +228,10 @@ public class RestApiUtils {
                 .map(f -> readNavAsString(obj, f)) //
                 .filter(s -> s != null) //
                 .collect(Collectors.joining(","));
+
+        if (data == null) {
+            return null;
+        }
 
         // #3. body
         String body = String.join("", header, "{", data, "}", System.lineSeparator());

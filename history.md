@@ -1,3 +1,10 @@
+[2022/09/15]
+- Add
+  + open.commons.spring.elastic.service.AbstractElasticsearchService
+    + bulkIndex(String, String)
+    + createBulkJSONString(List&lt;T&gt;)
+    + createBulkJSONTempFile(List&lt;T&gt;, String, String)
+
 [2022/09/02]
 - New
   + open.commons.spring.elastic.utils.RestApiUtils
