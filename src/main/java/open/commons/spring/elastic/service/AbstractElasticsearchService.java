@@ -111,8 +111,8 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @param url
      *            Elasticsearch API 'Bulk Index' URL.<br>
      *            <ul>
-     *            <li>포맷: {scheme}://{host}:{port}/{index}/_index
-     *            <li>예시: http://192.168.0.10:80/test-index/_index
+     *            <li>포맷: {scheme}://{host}:{port}/{index}/_bulk
+     *            <li>예시: http://192.168.0.10:80/test-index/_bulk
      *            </ul>
      * @param filepath
      *            Elasticsearch JSON bulk 파일 절대경로
@@ -124,12 +124,21 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public void bulkIndex(String url, String filepath) throws IOException, InterruptedException {
+
         String[] cmdarr = { "curl", "-X", "POST", url, "-H", "'Content-Type: application/x-ndjson'", "--data-binary", "@" + filepath };
+
         Process bulkProc = Runtime.getRuntime().exec(cmdarr);
         InputStream in = bulkProc.getInputStream();
-        while (in.read() != -1) {
-            ;
+        int r = -1;
+
+        StringBuilder resultExec = new StringBuilder();
+        while ((r = in.read()) != -1) {
+            resultExec.append((char) r);
         }
+
+        logger.trace("cmdarr={}", String.join(" ", cmdarr));
+        logger.trace("exec  ={}", resultExec.toString());
+
         bulkProc.waitFor();
 
         int exitCode = bulkProc.exitValue();
