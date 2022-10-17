@@ -1,3 +1,10 @@
+[2022/10/13]
+- Add
+  + open.commons.spring.elastic.service.AbstractElasticsearchService
+    + createBulkIndexAction(List&lt;T&gt;, BiFunction&lt;ElasticsearchRestTemplate, List&lt;IndexQuery&gt;, List&lt;IndexedObjectInformation&gt;&gt;)  
+    + createBulkIndexAction(List&lt;T&gt;, String)
+    + createIndex(String, String): 주어진 이름과 매핑 정보를 이용하여 Index 를 생성
+
 [2022/09/15]
 - Add
   + open.commons.spring.elastic.service.AbstractElasticsearchService

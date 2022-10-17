@@ -37,19 +37,27 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.elasticsearch.client.IndicesClient;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
+import org.elasticsearch.client.indices.CreateIndexResponse;
+import org.elasticsearch.client.indices.GetIndexRequest;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.IndexedObjectInformation;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.ByQueryResponse;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQuery.OpType;
@@ -125,20 +133,13 @@ public class AbstractElasticsearchService extends AbstractComponent {
      */
     public void bulkIndex(String url, String filepath) throws IOException, InterruptedException {
 
-        String[] cmdarr = { "curl", "-X", "POST", url, "-H", "'Content-Type: application/x-ndjson'", "--data-binary", "@" + filepath };
+        String[] cmdarr = { "curl", "-X", "POST", url, "-H", "Content-Type: application/x-ndjson", "--data-binary", "@" + filepath };
 
         Process bulkProc = Runtime.getRuntime().exec(cmdarr);
         InputStream in = bulkProc.getInputStream();
-        int r = -1;
-
-        StringBuilder resultExec = new StringBuilder();
-        while ((r = in.read()) != -1) {
-            resultExec.append((char) r);
+        while (in.read() != -1) {
+            ;
         }
-
-        logger.trace("cmdarr={}", String.join(" ", cmdarr));
-        logger.trace("exec  ={}", resultExec.toString());
-
         bulkProc.waitFor();
 
         int exitCode = bulkProc.exitValue();
@@ -175,6 +176,42 @@ public class AbstractElasticsearchService extends AbstractComponent {
     }
 
     /**
+     * 주어진 데이터를 'bulk index'를 이용하여 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param data
+     *            데이터
+     * @param bulkIndexFx
+     *            실행 함수
+     * @return
+     *
+     * @since 2022. 10. 17.
+     * @version 0.2.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data,
+            BiFunction<ElasticsearchRestTemplate, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
+        Supplier<Result<List<IndexedObjectInformation>>> action = () -> {
+            try {
+                ElasticsearchRestTemplate esOp = getElasticsearchOperations();
+                List<IndexQuery> queries = createBulk(data);
+                return Result.success(bulkIndexFx.apply(esOp, queries));
+            } catch (Exception e) {
+                return Result.error(e.getMessage());
+            }
+        };
+
+        return action;
+    }
+
+    /**
      * 다수 개의 데이터를 생성하는 작업을 제공합니다. <br>
      * 
      * <pre>
@@ -186,7 +223,9 @@ public class AbstractElasticsearchService extends AbstractComponent {
      *
      * @param <T>
      * @param data
+     *            데이터
      * @param type
+     *            IndexEntity class
      * @return
      *
      * @since 2022. 5. 17.
@@ -194,17 +233,34 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data, Class<T> type) {
-        Supplier<Result<List<IndexedObjectInformation>>> action = () -> {
-            try {
-                ElasticsearchRestTemplate esOp = getElasticsearchOperations();
-                List<IndexQuery> queries = createBulk(data);
-                return Result.success(esOp.bulkIndex(queries, type));
-            } catch (Exception e) {
-                return Result.error(e.getMessage());
-            }
-        };
+        return createBulkIndexAction(data, (esOp, queries) -> esOp.bulkIndex(queries, type));
+    }
 
-        return action;
+    /**
+     * 다수 개의 데이터를 생성하는 작업을 제공합니다. <br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param data
+     *            데이터
+     * @param indexName
+     *            'index' 이름
+     * @return
+     *
+     * @since 2022. 10. 13.
+     * @version 0.2.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data, String indexName) {
+        return createBulkIndexAction(data, (esOp, queries) -> esOp.bulkIndex(queries, IndexCoordinates.of(indexName)));
     }
 
     /**
@@ -272,6 +328,55 @@ public class AbstractElasticsearchService extends AbstractComponent {
 
         IOUtils.transfer(reader, true, writer, true, IOUtils.BUFFER_SIZE_1MB);
         return tmpfile.getAbsolutePath();
+    }
+
+    /**
+     * 주어진 이름과 매핑 정보를 이용하여 Index 를 생성합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param indexName
+     * @param source
+     *            'settings' and 'mapping'
+     * @return 'index' 생성 결과
+     *
+     * @since 2022. 10. 13.
+     * @version 0.2.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public Result<String> createIndex(@NotEmpty String indexName, String source) {
+        try {
+            GetIndexRequest reqGetIndex = new GetIndexRequest(indexName);
+            IndicesClient idxClient = this.highLevelClient.indices();
+            boolean exists = idxClient.exists(reqGetIndex, RequestOptions.DEFAULT);
+            if (exists) {
+                logger.info("* * * '{}' exist. index={}", exists ? "ALREADY" : "DO NOT", indexName);
+                return Result.success(indexName);
+            } else {
+                if (source != null) {
+                    CreateIndexRequest reqCreateIndex = new CreateIndexRequest(indexName);
+                    reqCreateIndex.source(source, XContentType.JSON);
+                    CreateIndexResponse resCreateIndex = idxClient.create(reqCreateIndex, RequestOptions.DEFAULT);
+
+                    logger.info("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
+                    return Result.success(indexName);
+                } else {
+                    String failedMsg = String.format("* * * 'No' source(settins, mappings, etc) for %s. info=%s", indexName, source);
+                    logger.warn("{}", failedMsg);
+                    return Result.error(failedMsg);
+                }
+            }
+
+        } catch (IOException e) {
+            String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
+            logger.error("{}", errMsg, e);
+            return Result.error(errMsg);
+        }
     }
 
     /**
