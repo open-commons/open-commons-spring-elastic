@@ -41,7 +41,6 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.elasticsearch.client.IndicesClient;
@@ -131,7 +130,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public void bulkIndex(String url, String filepath) throws IOException, InterruptedException {
+    public void bulkIndex(@NotNull String url, @NotNull String filepath) throws IOException, InterruptedException {
 
         String[] cmdarr = { "curl", "-X", "POST", url, "-H", "Content-Type: application/x-ndjson", "--data-binary", "@" + filepath };
 
@@ -166,7 +165,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public <T> List<IndexQuery> createBulk(@NotEmpty Collection<T> data) {
+    public <T> List<IndexQuery> createBulk(@NotNull Collection<T> data) {
         return data.parallelStream().map(d -> {
             return new IndexQueryBuilder() //
                     .withObject(d)//
@@ -196,8 +195,8 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data,
-            BiFunction<ElasticsearchRestTemplate, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
+    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(@NotNull List<T> data //
+            , @NotNull BiFunction<ElasticsearchRestTemplate, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
         Supplier<Result<List<IndexedObjectInformation>>> action = () -> {
             try {
                 ElasticsearchRestTemplate esOp = getElasticsearchOperations();
@@ -232,7 +231,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data, Class<T> type) {
+    public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(@NotNull List<T> data, @NotNull Class<T> type) {
         return createBulkIndexAction(data, (esOp, queries) -> esOp.bulkIndex(queries, type));
     }
 
@@ -317,7 +316,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public <T> String createBulkJSONTempFile(List<T> data, String tempfilePrefix, String tempfileSuffix) throws IOException {
+    public <T> String createBulkJSONTempFile(@NotNull List<T> data, @NotNull String tempfilePrefix, @NotNull String tempfileSuffix) throws IOException {
         // #1. bulk JSON 문자열 생성
         String bulkJSONStr = createBulkJSONString(data);
         Reader reader = new BufferedReader(new StringReader(bulkJSONStr));
@@ -349,13 +348,13 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public Result<String> createIndex(@NotEmpty String indexName, String source) {
+    public Result<String> createIndex(@NotNull String indexName, @NotNull String source) {
         try {
             GetIndexRequest reqGetIndex = new GetIndexRequest(indexName);
             IndicesClient idxClient = this.highLevelClient.indices();
             boolean exists = idxClient.exists(reqGetIndex, RequestOptions.DEFAULT);
             if (exists) {
-                logger.info("* * * '{}' exist. index={}", exists ? "ALREADY" : "DO NOT", indexName);
+                logger.debug("* * * '{}' exist. index={}", exists ? "ALREADY" : "DO NOT", indexName);
                 return Result.success(indexName);
             } else {
                 if (source != null) {
@@ -363,7 +362,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
                     reqCreateIndex.source(source, XContentType.JSON);
                     CreateIndexResponse resCreateIndex = idxClient.create(reqCreateIndex, RequestOptions.DEFAULT);
 
-                    logger.info("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
+                    logger.debug("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
                     return Result.success(indexName);
                 } else {
                     String failedMsg = String.format("* * * 'No' source(settins, mappings, etc) for %s. info=%s", indexName, source);
@@ -397,7 +396,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public ByQueryResponse delete(Query query, Class<?> clazz) {
+    public ByQueryResponse delete(@NotNull Query query, @NotNull Class<?> clazz) {
         ElasticsearchRestTemplate esOp = getElasticsearchOperations();
         return esOp.delete(query, clazz);
     }
@@ -441,7 +440,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public <E> List<E> search(Query query, Class<E> type) {
+    public <E> List<E> search(@NotNull Query query, @NotNull Class<E> type) {
         SearchHits<E> searchHits = searchHits(query, type);
         return searchHits.stream() //
                 .map(hit -> hit.getContent())//
@@ -467,7 +466,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public <E> SearchHits<E> searchHits(Query query, Class<E> type) {
+    public <E> SearchHits<E> searchHits(@NotNull Query query, @NotNull Class<E> type) {
         ElasticsearchRestTemplate esOp = getElasticsearchOperations();
         return esOp.search(query, type);
     }
