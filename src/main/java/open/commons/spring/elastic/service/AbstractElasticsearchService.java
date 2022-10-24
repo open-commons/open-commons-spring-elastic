@@ -346,7 +346,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
         } catch (ElasticsearchStatusException e) {
             String exMsg = e.toString();
             if (exMsg != null && exMsg.toLowerCase().contains("already exists")) {
-                logger.debug("* * * '{}' ALREADY exist. index={}", indexName);
+                logger.info("* * * '{}' ALREADY exist. index={}", indexName);
                 return Result.success(indexName);
             } else {
                 String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
