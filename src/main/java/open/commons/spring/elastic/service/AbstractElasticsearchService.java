@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import org.elasticsearch.ElasticsearchStatusException;
 import org.elasticsearch.client.IndicesClient;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
@@ -263,34 +264,6 @@ public class AbstractElasticsearchService extends AbstractComponent {
     }
 
     /**
-     * 데이터를 Elasticsearch Bulk JSON 형태로 변환하여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 9. 15.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param data
-     * @return
-     *
-     * @since 2022. 9. 15.
-     * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public <T> String createBulkJSONString(@NotNull List<T> data) {
-        return data.parallelStream()
-                // 단일 객체를 문자열로 변환
-                .map(d -> RestApiUtils.toIndexBulkString(d))
-                // 'null' 확인
-                .filter(s -> s != null)
-                // 하나의 문자열로 통합
-                .collect(Collectors.joining());
-    }
-
-    /**
      * 데이터를 Elasticsearch JSON 문자열로 변환하여 저장한 후, 저장한 파일정보를 제공합니다. <br>
      * 
      * <pre>
@@ -318,8 +291,8 @@ public class AbstractElasticsearchService extends AbstractComponent {
      */
     public <T> String createBulkJSONTempFile(@NotNull List<T> data, @NotNull String tempfilePrefix, @NotNull String tempfileSuffix) throws IOException {
         // #1. bulk JSON 문자열 생성
-        String bulkJSONStr = createBulkJSONString(data);
-        Reader reader = new BufferedReader(new StringReader(bulkJSONStr));
+        String bulkNDJsonStr = createNDJsonString(data);
+        Reader reader = new BufferedReader(new StringReader(bulkNDJsonStr));
 
         // #2. bulk JSON 파일 생성
         File tmpfile = File.createTempFile(tempfilePrefix, tempfileSuffix);
@@ -370,12 +343,49 @@ public class AbstractElasticsearchService extends AbstractComponent {
                     return Result.error(failedMsg);
                 }
             }
-
+        } catch (ElasticsearchStatusException e) {
+            String exMsg = e.toString();
+            if (exMsg != null && exMsg.toLowerCase().contains("already exists")) {
+                logger.debug("* * * '{}' ALREADY exist. index={}", indexName);
+                return Result.success(indexName);
+            } else {
+                String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
+                logger.error("{}", errMsg, e);
+                return Result.error(errMsg);
+            }
         } catch (IOException e) {
             String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
             logger.error("{}", errMsg, e);
             return Result.error(errMsg);
         }
+    }
+
+    /**
+     * 데이터를 Elasticsearch Bulk JSON 형태로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 9. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param data
+     * @return
+     *
+     * @since 2022. 9. 15.
+     * @version 0.2.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public <T> String createNDJsonString(@NotNull List<T> data) {
+        return data.parallelStream()
+                // 단일 객체를 문자열로 변환
+                .map(d -> RestApiUtils.toNDJsonString(d))
+                // 'null' 확인
+                .filter(s -> s != null)
+                // 하나의 문자열로 통합
+                .collect(Collectors.joining());
     }
 
     /**

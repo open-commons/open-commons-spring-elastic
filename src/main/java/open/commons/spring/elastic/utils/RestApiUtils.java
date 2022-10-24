@@ -44,6 +44,8 @@ import open.commons.core.utils.AnnotationUtils;
  */
 public class RestApiUtils {
 
+    private static final String LINE_SEPARATOR = System.lineSeparator();
+
     private static final BiFunction<Field, Object, Object> _value_ = (f, o) -> {
         boolean access = f.isAccessible();
         try {
@@ -217,9 +219,9 @@ public class RestApiUtils {
      * 
      * @see #readNavAsString(Object, Field)
      */
-    public static String toIndexBulkString(Object obj) {
+    public static String toNDJsonString(Object obj) {
         // #1. header
-        String header = "{\"index\":{}}" + System.lineSeparator();
+        String header = "{\"index\":{}}" + LINE_SEPARATOR;
 
         // #2. 데이터 생성
         @SuppressWarnings("unchecked")
@@ -234,7 +236,7 @@ public class RestApiUtils {
         }
 
         // #3. body
-        String body = String.join("", header, "{", data, "}", System.lineSeparator());
+        String body = String.join("", header, "{", data, "}", LINE_SEPARATOR);
 
         return body;
     }
