@@ -335,7 +335,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
                     reqCreateIndex.source(source, XContentType.JSON);
                     CreateIndexResponse resCreateIndex = idxClient.create(reqCreateIndex, RequestOptions.DEFAULT);
 
-                    logger.debug("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
+                    logger.info("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
                     return Result.success(indexName);
                 } else {
                     String failedMsg = String.format("* * * 'No' source(settins, mappings, etc) for %s. info=%s", indexName, source);
@@ -346,7 +346,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
         } catch (ElasticsearchStatusException e) {
             String exMsg = e.toString();
             if (exMsg != null && exMsg.toLowerCase().contains("already exists")) {
-                logger.info("* * * '{}' ALREADY exist. index={}", indexName);
+                logger.debug("* * * '{}' ALREADY exist. index={}", indexName);
                 return Result.success(indexName);
             } else {
                 String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
