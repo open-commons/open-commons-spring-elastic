@@ -32,7 +32,7 @@
 		<!-- >>> end: plugin dependencies -->
 
 		<!-- >>> begin: dependencies -->
-		<spring-core.version>[5.3.9,)</spring-core.version>
+		<spring-core.version>[5.3.23]</spring-core.version>
 		<spring-boot.version>2.5.3</spring-boot.version>
 		<slf4j-api.version>1.7.32</slf4j-api.version>
 		<reflections.version>0.9.11</reflections.version>

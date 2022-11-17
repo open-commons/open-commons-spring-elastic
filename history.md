@@ -1,3 +1,7 @@
+[2022/11/17]
+- Dependencies
+	+ spring-core.version: 5.3.23 고정
+	
 [2022/10/13]
 - Add
   + open.commons.spring.elastic.service.AbstractElasticsearchService
