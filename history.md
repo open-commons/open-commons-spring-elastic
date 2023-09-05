@@ -1,3 +1,6 @@
+[2023/09/05]
+- Release: 0.2.0
+
 [2022/11/17]
 - Dependencies
 	+ spring-core.version: 5.3.23 고정
