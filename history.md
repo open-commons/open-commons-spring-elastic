@@ -1,4 +1,12 @@
 [2023/09/05]
+- Release: 0.3.0-SNAPSHOT
+- Dependencies
+  + spring-core:: 5.3.29
+  + spring-boot: 2.7.15
+  + sl4jf-api: 2.0.9
+  + open-commons-spring-web: 0.6.0-SNAPSHOT
+
+[2023/09/05]
 - Release: 0.2.0
 
 [2022/11/17]
