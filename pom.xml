@@ -40,7 +40,7 @@
 		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
 
 		<open-commons-core.version>2.0.0-SNAPSHOT</open-commons-core.version>
-		<open-commons-spring-web.version>0.6.0-SNAPSHOT</open-commons-spring-web.version>
+		<open-commons-spring-web.version>0.7.0-SNAPSHOT</open-commons-spring-web.version>
 		<!-- <<< end: dependencies -->
 	</properties>
 

@@ -1,3 +1,7 @@
+[2023/09/07]
+- Dependencies
+  + open-commons-spring-web: 0.7.0-SNAPSHOT
+  
 [2023/09/05]
 - Release: 0.3.0-SNAPSHOT
 - Dependencies
