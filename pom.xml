@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-spring-elastic</artifactId>
@@ -32,8 +31,8 @@
 		<!-- >>> end: plugin dependencies -->
 
 		<!-- >>> begin: dependencies -->
-		<spring-core.version>[5.3.29]</spring-core.version>
-		<spring-boot.version>2.7.15</spring-boot.version>
+		<spring-core.version>5.3.30</spring-core.version>
+		<spring-boot.version>2.7.16</spring-boot.version>
 		<slf4j-api.version>2.0.9</slf4j-api.version>
 		<reflections.version>0.9.11</reflections.version>
 		<httpclient.version>[4.5.13,)</httpclient.version>
@@ -132,7 +131,7 @@
 		<!-- <artifactId>elasticsearch-rest-high-level-client</artifactId> -->
 		<!-- <version>7.15.1</version> $NO-MVN-MAN-VER$ -->
 		<!-- </dependency> -->
-		
+
 		<!-- end: Elasticsearch -->
 		<!-- ************** -->
 
@@ -197,7 +196,7 @@
 					<artifactId>open-commons-ssh</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>		
+		</dependency>
 		<!-- end: open.commons -->
 		<!-- ************** -->
 

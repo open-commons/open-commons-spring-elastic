@@ -41,22 +41,16 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 import org.elasticsearch.ElasticsearchStatusException;
-import org.elasticsearch.client.IndicesClient;
-import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.client.indices.GetIndexRequest;
-import org.elasticsearch.xcontent.XContentType;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
-import org.springframework.data.elasticsearch.client.RestClients;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.IndexedObjectInformation;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.elasticsearch.core.query.ByQueryResponse;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
@@ -67,9 +61,26 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import open.commons.core.Result;
 import open.commons.core.utils.IOUtils;
 import open.commons.spring.elastic.utils.RestApiUtils;
+import open.commons.spring.elastic.utils.RestClients;
 import open.commons.spring.web.mvc.service.AbstractComponent;
 
+import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
+import co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient;
+import co.elastic.clients.transport.endpoints.BooleanResponse;
+
 /**
+ * 
+ * 
+ * <br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자	|	내용
+ * ------------------------------------------
+ * 2022. 5. 17.         박준홍     최초 작성
+ * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
+ * </pre>
  * 
  * @since 2022. 5. 17.
  * @version 0.2.0
@@ -78,10 +89,9 @@ import open.commons.spring.web.mvc.service.AbstractComponent;
 public class AbstractElasticsearchService extends AbstractComponent {
 
     protected final ClientConfiguration esClientConfig;
-
-    protected final RestHighLevelClient highLevelClient;
-    @SuppressWarnings("unused")
-    protected final RestClient lowLevelClient;
+    protected final RestClient restClient;
+    protected final ElasticsearchClient esClient;
+    protected final ElasticsearchConverter esConverter;
 
     /**
      * <br>
@@ -101,9 +111,33 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public AbstractElasticsearchService(@NotNull ClientConfiguration esClientConfig) {
+        this(esClientConfig, null);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param esClientConfig
+     *            Elasticsearch 클라이언트 설정
+     * @param esConverter
+     *
+     * @since 2023. 10. 13.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public AbstractElasticsearchService(@NotNull ClientConfiguration esClientConfig, @Nullable ElasticsearchConverter esConverter) {
         this.esClientConfig = esClientConfig;
-        this.highLevelClient = RestClients.create(this.esClientConfig).rest();
-        this.lowLevelClient = RestClients.create(this.esClientConfig).lowLevelRest();
+        this.restClient = RestClients.create(this.esClientConfig);
+        this.esClient = RestClients.createElasticsearchClient(restClient, null);
+        this.esConverter = esConverter;
     }
 
     /**
@@ -183,6 +217,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 10. 17.		박준홍			최초 작성
+     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @param <T>
@@ -197,10 +232,10 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(@NotNull List<T> data //
-            , @NotNull BiFunction<ElasticsearchRestTemplate, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
+            , @NotNull BiFunction<ElasticsearchTemplate, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
         Supplier<Result<List<IndexedObjectInformation>>> action = () -> {
             try {
-                ElasticsearchRestTemplate esOp = getElasticsearchOperations();
+                ElasticsearchTemplate esOp = getElasticsearchOperations();
                 List<IndexQuery> queries = createBulk(data);
                 return Result.success(bulkIndexFx.apply(esOp, queries));
             } catch (Exception e) {
@@ -310,11 +345,12 @@ public class AbstractElasticsearchService extends AbstractComponent {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 10. 13.		박준홍			최초 작성
+     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @param indexName
      * @param source
-     *            'settings' and 'mapping'
+     *            'settings' and 'mapping' 문자열
      * @return 'index' 생성 결과
      *
      * @since 2022. 10. 13.
@@ -322,19 +358,19 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public Result<String> createIndex(@NotNull String indexName, @NotNull String source) {
+
         try {
-            GetIndexRequest reqGetIndex = new GetIndexRequest(indexName);
-            IndicesClient idxClient = this.highLevelClient.indices();
-            boolean exists = idxClient.exists(reqGetIndex, RequestOptions.DEFAULT);
+            ElasticsearchIndicesClient idxClient = this.esClient.indices();
+            BooleanResponse res = idxClient.exists(bld -> bld.index(indexName));
+            boolean exists = res.value();
+
             if (exists) {
                 logger.debug("* * * '{}' exist. index={}", exists ? "ALREADY" : "DO NOT", indexName);
                 return Result.success(indexName);
             } else {
                 if (source != null) {
-                    CreateIndexRequest reqCreateIndex = new CreateIndexRequest(indexName);
-                    reqCreateIndex.source(source, XContentType.JSON);
-                    CreateIndexResponse resCreateIndex = idxClient.create(reqCreateIndex, RequestOptions.DEFAULT);
-
+                    Reader sourceReader = new StringReader(source);
+                    CreateIndexResponse resCreateIndex = idxClient.create(b -> b.index(indexName).withJson(sourceReader));
                     logger.info("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
                     return Result.success(indexName);
                 } else {
@@ -396,6 +432,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 5. 17.		박준홍			최초 작성
+     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @param query
@@ -407,18 +444,19 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ByQueryResponse delete(@NotNull Query query, @NotNull Class<?> clazz) {
-        ElasticsearchRestTemplate esOp = getElasticsearchOperations();
+        ElasticsearchTemplate esOp = getElasticsearchOperations();
         return esOp.delete(query, clazz);
     }
 
     /**
-     * {@link RestHighLevelClient}를 이용하여 생성된 Elasticsearch 연동 객체를 제공합니다. <br>
+     * {@link RestClient}를 이용하여 생성된 {@link ElasticsearchTemplate} 연동 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 5. 17.		박준홍			최초 작성
+     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @return
@@ -427,8 +465,8 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public ElasticsearchRestTemplate getElasticsearchOperations() {
-        return new ElasticsearchRestTemplate(this.highLevelClient);
+    public ElasticsearchTemplate getElasticsearchOperations() {
+        return new ElasticsearchTemplate(this.esClient, this.esConverter);
     }
 
     /**
@@ -477,7 +515,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <E> SearchHits<E> searchHits(@NotNull Query query, @NotNull Class<E> type) {
-        ElasticsearchRestTemplate esOp = getElasticsearchOperations();
+        ElasticsearchTemplate esOp = getElasticsearchOperations();
         return esOp.search(query, type);
     }
 

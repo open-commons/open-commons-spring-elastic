@@ -1,3 +1,13 @@
+[2023/10/13]
+- Dependencies
+  + spring-core: 5.3.30
+  + spring-boot: 2.7.16
+- Migraiton from the High Level Rest Client to Java API Client  
+  + Add
+    + open.commons.spring.elastic.utils.RestClients: org.springframework.data.elasticsearch.client.RestClients 를 기본으로 Java API Client에 맞도록 코드 수정 및 기능 추가
+  + Modify
+    + open.commons.spring.elastic.service.AbstractElasticsearchService: Java API Client 대응 수정
+
 [2023/09/07]
 - Dependencies
   + open-commons-spring-web: 0.7.0-SNAPSHOT
