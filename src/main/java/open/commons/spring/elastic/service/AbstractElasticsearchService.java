@@ -137,7 +137,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
     public AbstractElasticsearchService(@NotNull ClientConfiguration esClientConfig, @Nullable ElasticsearchConverter esConverter) {
         this.esClientConfig = esClientConfig;
         this.restClient = RestClients.create(this.esClientConfig);
-        this.esClient = RestClients.createElasticsearchClient(restClient, null);
+        this.esClient = createElasticsearchClient(this.restClient);
         this.esConverter = esConverter;
     }
 
@@ -336,6 +336,28 @@ public class AbstractElasticsearchService extends AbstractComponent {
 
         IOUtils.transfer(reader, true, writer, true, IOUtils.BUFFER_SIZE_1MB);
         return tmpfile.getAbsolutePath();
+    }
+
+    /**
+     * {@link ElasticsearchClient}를 제공합니다.<br>
+     * 하위 클래스는 이 메소드를 overriding 하여 목적에 맞게 구현합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 16.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param restClient
+     * @return
+     *
+     * @since 2023. 10. 16.
+     * @version 0.2.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    protected ElasticsearchClient createElasticsearchClient(@NotNull RestClient restClient) {
+        return RestClients.createElasticsearchClient(restClient, null);
     }
 
     /**
