@@ -48,6 +48,7 @@ import org.elasticsearch.ElasticsearchStatusException;
 import org.elasticsearch.client.RestClient;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.IndexedObjectInformation;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
@@ -232,10 +233,10 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(@NotNull List<T> data //
-            , @NotNull BiFunction<ElasticsearchTemplate, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
+            , @NotNull BiFunction<ElasticsearchOperations, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
         Supplier<Result<List<IndexedObjectInformation>>> action = () -> {
             try {
-                ElasticsearchTemplate esOp = getElasticsearchOperations();
+                ElasticsearchOperations esOp = getElasticsearchOperations();
                 List<IndexQuery> queries = createBulk(data);
                 return Result.success(bulkIndexFx.apply(esOp, queries));
             } catch (Exception e) {
@@ -444,7 +445,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ByQueryResponse delete(@NotNull Query query, @NotNull Class<?> clazz) {
-        ElasticsearchTemplate esOp = getElasticsearchOperations();
+        ElasticsearchOperations esOp = getElasticsearchOperations();
         return esOp.delete(query, clazz);
     }
 
@@ -465,7 +466,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @version 0.2.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public ElasticsearchTemplate getElasticsearchOperations() {
+    public ElasticsearchOperations getElasticsearchOperations() {
         return new ElasticsearchTemplate(this.esClient, this.esConverter);
     }
 
@@ -515,7 +516,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <E> SearchHits<E> searchHits(@NotNull Query query, @NotNull Class<E> type) {
-        ElasticsearchTemplate esOp = getElasticsearchOperations();
+        ElasticsearchOperations esOp = getElasticsearchOperations();
         return esOp.search(query, type);
     }
 
