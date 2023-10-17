@@ -52,7 +52,9 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.IndexedObjectInformation;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.convert.ElasticsearchConverter;
+import org.springframework.data.elasticsearch.core.convert.MappingElasticsearchConverter;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.mapping.SimpleElasticsearchMappingContext;
 import org.springframework.data.elasticsearch.core.query.ByQueryResponse;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQuery.OpType;
@@ -138,7 +140,9 @@ public class AbstractElasticsearchService extends AbstractComponent {
         this.esClientConfig = esClientConfig;
         this.restClient = RestClients.create(this.esClientConfig);
         this.esClient = createElasticsearchClient(this.restClient);
-        this.esConverter = esConverter;
+        this.esConverter = esConverter != null //
+                ? esConverter //
+                : createElasticsearchConverter();
     }
 
     /**
@@ -358,6 +362,12 @@ public class AbstractElasticsearchService extends AbstractComponent {
      */
     protected ElasticsearchClient createElasticsearchClient(@NotNull RestClient restClient) {
         return RestClients.createElasticsearchClient(restClient, null);
+    }
+
+    private ElasticsearchConverter createElasticsearchConverter() {
+        MappingElasticsearchConverter mappingElasticsearchConverter = new MappingElasticsearchConverter(new SimpleElasticsearchMappingContext());
+        mappingElasticsearchConverter.afterPropertiesSet();
+        return mappingElasticsearchConverter;
     }
 
     /**

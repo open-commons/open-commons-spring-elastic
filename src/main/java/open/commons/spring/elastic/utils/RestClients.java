@@ -77,6 +77,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.JsonpMapper;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
@@ -274,7 +276,7 @@ public class RestClients {
      */
     public static ElasticsearchClient createElasticsearchClient(RestClient restClient, JsonpMapper mapper, @Nullable TransportOptions transportOptions) {
         if (mapper == null) {
-            mapper = new JacksonJsonpMapper();
+            mapper = new JacksonJsonpMapper(new ObjectMapper());
         }
 
         ElasticsearchTransport transport = new RestClientTransport(restClient, mapper, transportOptions);
