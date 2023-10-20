@@ -67,6 +67,7 @@ import open.commons.spring.elastic.utils.RestApiUtils;
 import open.commons.spring.elastic.utils.RestClients;
 import open.commons.spring.web.mvc.service.AbstractComponent;
 
+import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient;
@@ -94,6 +95,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
     protected final ClientConfiguration esClientConfig;
     protected final RestClient restClient;
     protected final ElasticsearchClient esClient;
+    protected final ElasticsearchAsyncClient esAsyncClient;
     protected final ElasticsearchConverter esConverter;
 
     /**
@@ -140,6 +142,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
         this.esClientConfig = esClientConfig;
         this.restClient = RestClients.create(this.esClientConfig);
         this.esClient = createElasticsearchClient(this.restClient);
+        this.esAsyncClient = createElasticsearchAsyncClient(this.restClient);
         this.esConverter = esConverter != null //
                 ? esConverter //
                 : createElasticsearchConverter();
@@ -167,7 +170,7 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @throws InterruptedException
      *
      * @since 2022. 9. 15.
-     * @version _._._
+     * @version 0.3.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public void bulkIndex(@NotNull String url, @NotNull String filepath) throws IOException, InterruptedException {
@@ -340,6 +343,28 @@ public class AbstractElasticsearchService extends AbstractComponent {
 
         IOUtils.transfer(reader, true, writer, true, IOUtils.BUFFER_SIZE_1MB);
         return tmpfile.getAbsolutePath();
+    }
+
+    /**
+     * {@link ElasticsearchAsyncClient}를 제공합니다.<br>
+     * 하위 클래스는 이 메소드를 overriding 하여 목적에 맞게 구현합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param restClient
+     * @return
+     *
+     * @since 2023. 10. 18.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    protected ElasticsearchAsyncClient createElasticsearchAsyncClient(@NotNull RestClient restClient) {
+        return RestClients.createElasticsearchAsyncClient(restClient, null);
     }
 
     /**

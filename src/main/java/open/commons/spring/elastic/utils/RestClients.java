@@ -79,6 +79,7 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.json.JsonpMapper;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
@@ -189,6 +190,99 @@ public class RestClients {
     }
 
     /**
+     * {@link ElasticsearchAsyncClient}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param transport
+     * @return
+     *
+     * @since 2023. 10. 18.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static ElasticsearchAsyncClient createElasticsearchAsyncClient(ElasticsearchTransport transport) {
+        return createElasticsearchAsyncClient(transport, null);
+    }
+
+    /**
+     * {@link ElasticsearchAsyncClient}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param transport
+     * @param transportOptions
+     * @return
+     *
+     * @since 2023. 10. 18.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static ElasticsearchAsyncClient createElasticsearchAsyncClient(ElasticsearchTransport transport, @Nullable TransportOptions transportOptions) {
+        return new ElasticsearchAsyncClient(transport, transportOptions);
+    }
+
+    /**
+     * {@link ElasticsearchAsyncClient}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param restClient
+     * @param mapper
+     * @return
+     *
+     * @since 2023. 10. 18.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static ElasticsearchAsyncClient createElasticsearchAsyncClient(RestClient restClient, JsonpMapper mapper) {
+        return createElasticsearchAsyncClient(restClient, mapper, null);
+    }
+
+    /**
+     * {@link ElasticsearchAsyncClient}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 10. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param restClient
+     * @param mapper
+     * @param transportOptions
+     * @return
+     *
+     * @since 2023. 10. 18.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static ElasticsearchAsyncClient createElasticsearchAsyncClient(RestClient restClient, JsonpMapper mapper, @Nullable TransportOptions transportOptions) {
+        if (mapper == null) {
+            mapper = new JacksonJsonpMapper(new ObjectMapper());
+        }
+
+        ElasticsearchTransport transport = new RestClientTransport(restClient, mapper, transportOptions);
+        return createElasticsearchAsyncClient(transport);
+    }
+
+    /**
      * {@link ElasticsearchClient} 를 제공합니다. <br>
      * 
      * <pre>
@@ -243,7 +337,6 @@ public class RestClients {
      *
      * @param restClient
      * @param mapper
-     *            TODO
      * @return
      *
      * @since 2023. 10. 13.
@@ -266,7 +359,6 @@ public class RestClients {
      *
      * @param restClient
      * @param mapper
-     *            TODO
      * @param transportOptions
      * @return
      *

@@ -1,3 +1,13 @@
+[2023/10/20]
+- Modify
+  + open.commons.spring.elastic.service.AbstractElasticsearchService
+    + createElasticsearchAsyncClient(RestClient): 비동기 클라이언트 지원
+  + open.commons.spring.elastic.utils.RestClients
+    + createElasticsearchAsyncClient(ElasticsearchTransport): 비동기 클라이언트 지원
+    + createElasticsearchAsyncClient(ElasticsearchTransport, TransportOptions): 비동기 클라이언트 지원
+    + createElasticsearchAsyncClient(RestClient, JsonpMapper): 비동기 클라이언트 지원
+    + createElasticsearchAsyncClient(RestClient, JsonpMapper, TransportOptions): 비동기 클라이언트 지원
+
 [2023/10/13]
 - Dependencies
   + spring-core: 5.3.30
