@@ -1,3 +1,12 @@
+[2024/04/11]
+- New 
+  + open.commons.spring.elastic.service.AbstractElasticClientService
+- Delete
+  + open.commons.spring.elastic.service.AbstractElasticsearchService
+    + createElasticsearchAsyncClient(RestClient): open.commons.spring.elastic.service.AbstractElasticClientService로 이관
+    + createElasticsearchClient(RestClient): open.commons.spring.elastic.service.AbstractElasticClientService로 이관
+    + createIndex(String, String): open.commons.spring.elastic.service.AbstractElasticClientService로 이관
+  
 [2023/10/20]
 - Modify
   + open.commons.spring.elastic.service.AbstractElasticsearchService

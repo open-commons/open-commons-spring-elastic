@@ -64,11 +64,7 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import open.commons.core.Result;
 import open.commons.core.utils.IOUtils;
 import open.commons.spring.elastic.utils.RestApiUtils;
-import open.commons.spring.elastic.utils.RestClients;
-import open.commons.spring.web.mvc.service.AbstractComponent;
 
-import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient;
-import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
@@ -84,18 +80,16 @@ import co.elastic.clients.transport.endpoints.BooleanResponse;
  * ------------------------------------------
  * 2022. 5. 17.         박준홍     최초 작성
  * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
+ * 2024. 4. 11.         박준홍     Java API Client 기능을 {@link AbstractElasticClientService}로 이관시킴.
  * </pre>
  * 
  * @since 2022. 5. 17.
  * @version 0.2.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class AbstractElasticsearchService extends AbstractComponent {
+public class AbstractElasticsearchService extends AbstractElasticClientService {
 
     protected final ClientConfiguration esClientConfig;
-    protected final RestClient restClient;
-    protected final ElasticsearchClient esClient;
-    protected final ElasticsearchAsyncClient esAsyncClient;
     protected final ElasticsearchConverter esConverter;
 
     /**
@@ -139,10 +133,8 @@ public class AbstractElasticsearchService extends AbstractComponent {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public AbstractElasticsearchService(@NotNull ClientConfiguration esClientConfig, @Nullable ElasticsearchConverter esConverter) {
+        super(esClientConfig);
         this.esClientConfig = esClientConfig;
-        this.restClient = RestClients.create(this.esClientConfig);
-        this.esClient = createElasticsearchClient(this.restClient);
-        this.esAsyncClient = createElasticsearchAsyncClient(this.restClient);
         this.esConverter = esConverter != null //
                 ? esConverter //
                 : createElasticsearchConverter();
@@ -345,113 +337,10 @@ public class AbstractElasticsearchService extends AbstractComponent {
         return tmpfile.getAbsolutePath();
     }
 
-    /**
-     * {@link ElasticsearchAsyncClient}를 제공합니다.<br>
-     * 하위 클래스는 이 메소드를 overriding 하여 목적에 맞게 구현합니다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 10. 18.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param restClient
-     * @return
-     *
-     * @since 2023. 10. 18.
-     * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    protected ElasticsearchAsyncClient createElasticsearchAsyncClient(@NotNull RestClient restClient) {
-        return RestClients.createElasticsearchAsyncClient(restClient, null);
-    }
-
-    /**
-     * {@link ElasticsearchClient}를 제공합니다.<br>
-     * 하위 클래스는 이 메소드를 overriding 하여 목적에 맞게 구현합니다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 10. 16.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param restClient
-     * @return
-     *
-     * @since 2023. 10. 16.
-     * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    protected ElasticsearchClient createElasticsearchClient(@NotNull RestClient restClient) {
-        return RestClients.createElasticsearchClient(restClient, null);
-    }
-
     private ElasticsearchConverter createElasticsearchConverter() {
         MappingElasticsearchConverter mappingElasticsearchConverter = new MappingElasticsearchConverter(new SimpleElasticsearchMappingContext());
         mappingElasticsearchConverter.afterPropertiesSet();
         return mappingElasticsearchConverter;
-    }
-
-    /**
-     * 주어진 이름과 매핑 정보를 이용하여 Index 를 생성합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 10. 13.		박준홍			최초 작성
-     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
-     * </pre>
-     *
-     * @param indexName
-     * @param source
-     *            'settings' and 'mapping' 문자열
-     * @return 'index' 생성 결과
-     *
-     * @since 2022. 10. 13.
-     * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public Result<String> createIndex(@NotNull String indexName, @NotNull String source) {
-
-        try {
-            ElasticsearchIndicesClient idxClient = this.esClient.indices();
-            BooleanResponse res = idxClient.exists(bld -> bld.index(indexName));
-            boolean exists = res.value();
-
-            if (exists) {
-                logger.debug("* * * '{}' exist. index={}", exists ? "ALREADY" : "DO NOT", indexName);
-                return Result.success(indexName);
-            } else {
-                if (source != null) {
-                    Reader sourceReader = new StringReader(source);
-                    CreateIndexResponse resCreateIndex = idxClient.create(b -> b.index(indexName).withJson(sourceReader));
-                    logger.info("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
-                    return Result.success(indexName);
-                } else {
-                    String failedMsg = String.format("* * * 'No' source(settins, mappings, etc) for %s. info=%s", indexName, source);
-                    logger.warn("{}", failedMsg);
-                    return Result.error(failedMsg);
-                }
-            }
-        } catch (ElasticsearchStatusException e) {
-            String exMsg = e.toString();
-            if (exMsg != null && exMsg.toLowerCase().contains("already exists")) {
-                logger.debug("* * * '{}' ALREADY exist. index={}", indexName);
-                return Result.success(indexName);
-            } else {
-                String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
-                logger.error("{}", errMsg, e);
-                return Result.error(errMsg);
-            }
-        } catch (IOException e) {
-            String errMsg = String.format("'%s' index 조회/생성 시 오류가 발생하였습니다. 원인=%s", indexName, e.getMessage());
-            logger.error("{}", errMsg, e);
-            return Result.error(errMsg);
-        }
     }
 
     /**
