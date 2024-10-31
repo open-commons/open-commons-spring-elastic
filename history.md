@@ -1,3 +1,7 @@
+[2024/10/31]
+- ETC
+  + Maven Repository 주소 변경 (http -> https)
+  
 [2024/04/11]
 - New 
   + open.commons.spring.elastic.service.AbstractElasticClientService
