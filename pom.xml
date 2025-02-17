@@ -1,8 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>open.commons</groupId>
+	<parent>
+		<groupId>open.commons</groupId>
+		<artifactId>open-commons-spring-web-dependencies</artifactId>
+		<version>0.8.0-SNAPSHOT</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 	<artifactId>open-commons-spring-elastic</artifactId>
-	<version>0.3.0</version>
+	<version>0.4.0-SNAPSHOT</version>
 	<name>Open Commons for SpringData-Elastic</name>
 	<description>Open Commons for (SpringData/Elastic)-Based Elasticsearch, Logstash, Kibana, etc .</description>
 
@@ -14,6 +19,17 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<name>Park, Jun-Hong</name>
+			<email>parkjunhong77@gmail.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/parkjunhong/open-commons-spring-elastic</url>
+		<developerConnection>parkjunhong77@gmail.com</developerConnection>
+	</scm>
+
 	<properties>
 		<!-- >>> begin: plugin dependencies -->
 		<build.finalName>open-commons-spring-elastic-${project.version}</build.finalName>
@@ -24,22 +40,12 @@
 		<compile.encoding>UTF-8</compile.encoding>
 		<compile.source.version>1.8</compile.source.version>
 		<compile.target.version>1.8</compile.target.version>
-
-		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
 		<!-- >>> end: plugin dependencies -->
 
 		<!-- >>> begin: dependencies -->
-		<spring-core.version>5.3.30</spring-core.version>
-		<spring-boot.version>2.7.16</spring-boot.version>
-		<slf4j-api.version>2.0.9</slf4j-api.version>
-		<reflections.version>0.9.11</reflections.version>
-		<httpclient.version>[4.5.13,)</httpclient.version>
-		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
+		<open-commons-spring-web.version>0.8.0-SNAPSHOT</open-commons-spring-web.version>
 
-		<open-commons-core.version>2.0.0-SNAPSHOT</open-commons-core.version>
-		<open-commons-spring-web.version>0.7.0-SNAPSHOT</open-commons-spring-web.version>
+		<spring-boot-starter-data-elasticsearch.version>${spring-boot.version}</spring-boot-starter-data-elasticsearch.version>
 		<!-- <<< end: dependencies -->
 	</properties>
 
@@ -84,38 +90,6 @@
 	</pluginRepositories>
 
 	<dependencies>
-		<!-- ********************** -->
-		<!-- begin: spring-framework -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring-core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring-core.version}</version>
-		</dependency>
-		<!-- end: spring-framework -->
-		<!-- ********************** -->
-
-		<!-- ********************** -->
-		<!-- begin: spring boot -->
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot</artifactId>
-			<version>${spring-boot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>${spring-boot.version}</version>
-		</dependency>
-		<!-- end: spring boot -->
-		<!-- ********************** -->
-
-
 		<!-- ************** -->
 		<!-- begin: Elasticsearch -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-elasticsearch -->
@@ -125,67 +99,8 @@
 			<version>${spring-boot-starter-data-elasticsearch.version}</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.elasticsearch.client</groupId> -->
-		<!-- <artifactId>elasticsearch-rest-high-level-client</artifactId> -->
-		<!-- <version>7.15.1</version> $NO-MVN-MAN-VER$ -->
-		<!-- </dependency> -->
-
-		<!-- end: Elasticsearch -->
-		<!-- ************** -->
-
-		<!-- ************** -->
-		<!-- begin: validation -->
-		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
-		</dependency>
-		<!-- end: validation -->
-		<!-- ************** -->
-
-		<!-- ********************** -->
-		<!-- begin: slf4j -->
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-api.version}</version>
-		</dependency>
-		<!-- end: slf4j -->
-		<!-- ********************** -->
-
-		<!-- ********************** -->
-		<!-- begin: refletions -->
-		<!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>${reflections.version}</version>
-		</dependency>
-		<!-- end: reflections -->
-		<!-- ********************** -->
-
-		<!-- ************** -->
-		<!-- begin: httpclient -->
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>${httpclient.version}</version>
-		</dependency>
-		<!-- end: httpclient -->
-		<!-- ************** -->
-
 		<!-- ************** -->
 		<!-- begin: open.commons -->
-		<dependency>
-			<groupId>open.commons</groupId>
-			<artifactId>open-commons-core</artifactId>
-			<version>${open-commons-core.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>open.commons</groupId>
 			<artifactId>open-commons-spring-web</artifactId>
@@ -280,9 +195,4 @@
 			<!-- <<< end: javadoc -->
 		</plugins>
 	</build>
-
-	<scm>
-		<url>https://github.com/parkjunhong/open-commons-spring-elastic</url>
-		<developerConnection>parkjunhong77@gmail.com</developerConnection>
-	</scm>
 </project>

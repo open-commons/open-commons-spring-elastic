@@ -1,4 +1,9 @@
 [2025/02/17]
+- Snapshot: 0.4.0-SNAPSHOT
+- Dependencies:
+  + open-commons-spring-web-dependencies: 0.8.0-SNAPSHOT
+
+[2025/02/17]
 - Release: 0.3.0
 
 [2024/10/31]
