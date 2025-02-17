@@ -21,7 +21,7 @@
   
 [2023/10/20]
 - Modify
-  + open.commons.spring.elastic.service.AbstractElasticsearchService
+  + open.commons.spring.elastic.service.AbstractElasticseaOpen Commons Spring Web Project 공통 의존성 적용rchService
     + createElasticsearchAsyncClient(RestClient): 비동기 클라이언트 지원
   + open.commons.spring.elastic.utils.RestClients
     + createElasticsearchAsyncClient(ElasticsearchTransport): 비동기 클라이언트 지원
