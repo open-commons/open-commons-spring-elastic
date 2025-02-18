@@ -1,3 +1,7 @@
+[2025/02/18]
+- Dependencies
+  + org.glassfish:jakarta.json:2.0.1
+
 [2025/02/17]
 - Snapshot: 0.4.0-SNAPSHOT
 - Dependencies:
