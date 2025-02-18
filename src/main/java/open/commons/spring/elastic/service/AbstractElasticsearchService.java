@@ -44,7 +44,6 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
-import org.elasticsearch.ElasticsearchStatusException;
 import org.elasticsearch.client.RestClient;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
@@ -64,10 +63,6 @@ import org.springframework.data.elasticsearch.core.query.Query;
 import open.commons.core.Result;
 import open.commons.core.utils.IOUtils;
 import open.commons.spring.elastic.utils.RestApiUtils;
-
-import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
-import co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient;
-import co.elastic.clients.transport.endpoints.BooleanResponse;
 
 /**
  * 
