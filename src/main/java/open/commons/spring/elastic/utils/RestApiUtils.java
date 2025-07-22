@@ -224,7 +224,6 @@ public class RestApiUtils {
         String header = "{\"index\":{}}" + LINE_SEPARATOR;
 
         // #2. 데이터 생성
-        @SuppressWarnings("unchecked")
         List<Field> fields = AnnotationUtils.getAnnotatedFieldsAllHierarchy(obj, org.springframework.data.elasticsearch.annotations.Field.class);
         String data = fields.parallelStream()//
                 .map(f -> readNavAsString(obj, f)) //
