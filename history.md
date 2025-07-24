@@ -1,3 +1,9 @@
+[2025/07/24]
+- Dependencies
+  + Add
+    + jakarta.validation:jakarata.validation-api:${managed-version}
+    + com.google.code.findbugs:jsr305:${managed-version}
+
 [2025/02/21]
 Apply 'Maven Central Deployment'
 
