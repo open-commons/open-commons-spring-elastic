@@ -87,7 +87,7 @@ public class EndpointBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -105,7 +105,7 @@ public class EndpointBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the connections
@@ -128,7 +128,7 @@ public class EndpointBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param connections

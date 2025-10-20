@@ -73,7 +73,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @since 2021. 11. 15.
@@ -104,7 +104,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the endpoint
@@ -127,7 +127,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the secure
@@ -150,7 +150,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the terminal
@@ -173,7 +173,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param endpoint
@@ -194,7 +194,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param secure
@@ -215,7 +215,7 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param terminal

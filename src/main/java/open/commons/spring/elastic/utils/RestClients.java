@@ -196,7 +196,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 18.		박준홍			최초 작성
+     * 2023. 10. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param transport
@@ -217,7 +217,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 18.		박준홍			최초 작성
+     * 2023. 10. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param transport
@@ -239,7 +239,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 18.		박준홍			최초 작성
+     * 2023. 10. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param restClient
@@ -261,7 +261,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 18.		박준홍			최초 작성
+     * 2023. 10. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param restClient
@@ -289,7 +289,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 13.		박준홍			최초 작성
+     * 2023. 10. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param transport
@@ -310,7 +310,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 13.		박준홍			최초 작성
+     * 2023. 10. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param transport
@@ -332,7 +332,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 13.		박준홍			최초 작성
+     * 2023. 10. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param restClient
@@ -354,7 +354,7 @@ public class RestClients {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 13.		박준홍			최초 작성
+     * 2023. 10. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param restClient

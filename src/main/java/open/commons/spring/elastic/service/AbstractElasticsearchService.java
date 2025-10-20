@@ -73,9 +73,9 @@ import open.commons.spring.elastic.utils.RestApiUtils;
  * [개정이력]
  *      날짜    	| 작성자	|	내용
  * ------------------------------------------
- * 2022. 5. 17.         박준홍     최초 작성
- * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
- * 2024. 4. 11.         박준홍     Java API Client 기능을 {@link AbstractElasticClientService}로 이관시킴.
+ * 2022. 5. 17.         parkjunhong77@gmail.com     최초 작성
+ * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
+ * 2024. 4. 11.         parkjunhong77@gmail.com     Java API Client 기능을 {@link AbstractElasticClientService}로 이관시킴.
  * </pre>
  * 
  * @since 2022. 5. 17.
@@ -94,7 +94,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param esClientConfig
@@ -116,7 +116,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 10. 13.		박준홍			최초 작성
+     * 2023. 10. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param esClientConfig
@@ -142,7 +142,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 15.		박준홍			최초 작성
+     * 2022. 9. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param url
@@ -184,7 +184,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -211,8 +211,8 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 17.		박준홍			최초 작성
-     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
+     * 2022. 10. 17.		parkjunhong77@gmail.com			최초 작성
+     * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @param <T>
@@ -248,7 +248,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -275,7 +275,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 13.		박준홍			최초 작성
+     * 2022. 10. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -300,7 +300,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 15.		박준홍			최초 작성
+     * 2022. 9. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -345,7 +345,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 15.		박준홍			최초 작성
+     * 2022. 9. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -373,8 +373,8 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
-     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
+     * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @param query
@@ -397,8 +397,8 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
-     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
+     * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
      * </pre>
      *
      * @return
@@ -418,7 +418,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -444,7 +444,7 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 5. 17.		박준홍			최초 작성
+     * 2022. 5. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>

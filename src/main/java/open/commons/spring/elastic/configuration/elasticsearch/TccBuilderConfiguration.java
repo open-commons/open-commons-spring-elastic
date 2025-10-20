@@ -71,7 +71,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -89,7 +89,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the connectTimeout
@@ -112,7 +112,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the defaultHeaders
@@ -135,7 +135,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the password
@@ -158,7 +158,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the pathPrefix
@@ -181,7 +181,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the proxy
@@ -204,7 +204,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the socketTimeout
@@ -227,7 +227,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the username
@@ -250,7 +250,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param connectTimeout
@@ -273,7 +273,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param defaultHeaders
@@ -296,7 +296,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param password
@@ -319,7 +319,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param pathPrefix
@@ -342,7 +342,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param proxy
@@ -365,7 +365,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param socketTimeout
@@ -388,7 +388,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param username
@@ -440,7 +440,7 @@ public class TccBuilderConfiguration {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 15.		박준홍			최초 작성
+     * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return

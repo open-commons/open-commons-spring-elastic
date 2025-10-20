@@ -93,7 +93,7 @@ public class RestApiUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		박준홍			최초 작성
+     * 2022. 9. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param obj
@@ -206,7 +206,7 @@ public class RestApiUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		박준홍			최초 작성
+     * 2022. 9. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param operation

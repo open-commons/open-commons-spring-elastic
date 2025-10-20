@@ -53,9 +53,9 @@ import co.elastic.clients.transport.endpoints.BooleanResponse;
  * [개정이력]
  *      날짜    	| 작성자			|	내용
  * ------------------------------------------
- * 2022. 5. 17.         박준홍     최초 작성
- * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
- * 2024. 4. 11.	        박준홍     {@link AbstractElasticsearchService}에서 Elasticsearch Java API Client 기능을 분리.
+ * 2022. 5. 17.         parkjunhong77@gmail.com     최초 작성
+ * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
+ * 2024. 4. 11.	        parkjunhong77@gmail.com     {@link AbstractElasticsearchService}에서 Elasticsearch Java API Client 기능을 분리.
  * </pre>
  * 
  * @since 2024. 4. 11.
@@ -75,7 +75,7 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2024. 4. 11.		박준홍			최초 작성
+     * 2024. 4. 11.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param esClientConfig
@@ -98,8 +98,8 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 10. 18.        박준홍         최초 작성
-     * 2024. 4. 11.		박준홍			{@link AbstractElasticsearchService#createElasticsearchAsyncClient(RestClient)}에서 이관.
+     * 2023. 10. 18.        parkjunhong77@gmail.com         최초 작성
+     * 2024. 4. 11.		parkjunhong77@gmail.com			{@link AbstractElasticsearchService#createElasticsearchAsyncClient(RestClient)}에서 이관.
      * </pre>
      *
      * @param restClient
@@ -121,8 +121,8 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 10. 16.        박준홍         최초 작성
-     * 2024. 4. 11.     박준홍         {@link AbstractElasticsearchService#createElasticsearchClient(RestClient)}에서 이관.
+     * 2023. 10. 16.        parkjunhong77@gmail.com         최초 작성
+     * 2024. 4. 11.     parkjunhong77@gmail.com         {@link AbstractElasticsearchService#createElasticsearchClient(RestClient)}에서 이관.
      * </pre>
      *
      * @param restClient
@@ -143,9 +143,9 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 10. 13.        박준홍         최초 작성
-     * 2023. 10. 13.        박준홍     Migrate from the High Level Rest Client to Java API Client.
-     * 2024. 4. 11.     박준홍         {@link AbstractElasticsearchService#createElasticsearchClient(RestClient)}에서 이관.
+     * 2022. 10. 13.        parkjunhong77@gmail.com         최초 작성
+     * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
+     * 2024. 4. 11.     parkjunhong77@gmail.com         {@link AbstractElasticsearchService#createElasticsearchClient(RestClient)}에서 이관.
      * </pre>
      *
      * @param indexName
