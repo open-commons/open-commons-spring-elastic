@@ -1,3 +1,6 @@
+[2026/04/22]
+- Release 0.4.0
+
 [2025/07/24]
 - Dependencies
   + Add
