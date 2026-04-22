@@ -102,11 +102,12 @@ public class ConfigurationUtils {
         builder = setConfiguration(tbc.getProxy(), builder::withProxy, builder);
         builder = setConfiguration(tbc.getSocketTimeout(), builder::withSocketTimeout, builder);
         // end - Terminal Client Configuration
+
         return builder.build();
     }
 
-    private static <T> TerminalClientConfigurationBuilder setConfiguration(T config, Function<T, TerminalClientConfigurationBuilder> setter,
-            TerminalClientConfigurationBuilder defaultValue) {
+    private static <T> TerminalClientConfigurationBuilder setConfiguration(T config,
+            Function<T, TerminalClientConfigurationBuilder> setter, TerminalClientConfigurationBuilder defaultValue) {
         if (config instanceof String) {
             return FunctionUtils.runIf(config, o -> o != null && !((String) o).trim().isEmpty(), setter, defaultValue);
         } else {

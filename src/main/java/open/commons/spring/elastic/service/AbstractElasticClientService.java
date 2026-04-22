@@ -30,32 +30,34 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
-import org.elasticsearch.ElasticsearchStatusException;
-import org.elasticsearch.client.RestClient;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 
 import open.commons.core.Result;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.spring.elastic.utils.RestClients;
 import open.commons.spring.web.mvc.service.AbstractComponent;
 
 import co.elastic.clients.elasticsearch.ElasticsearchAsyncClient;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.ElasticsearchException;
 import co.elastic.clients.elasticsearch.indices.CreateIndexResponse;
 import co.elastic.clients.elasticsearch.indices.ElasticsearchIndicesClient;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
+import co.elastic.clients.transport.rest5_client.low_level.Rest5Client;
 
 /**
  * Elasticsearch Java API 기능을 지원하는 클래스. <br>
  * 
  * <pre>
  * [개정이력]
- *      날짜    	| 작성자			|	내용
- * ------------------------------------------
- * 2022. 5. 17.         parkjunhong77@gmail.com     최초 작성
- * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
- * 2024. 4. 11.	        parkjunhong77@gmail.com     {@link AbstractElasticsearchService}에서 Elasticsearch Java API Client 기능을 분리.
+ *      날짜      |   작성자                 |	내용
+ * -------------------------------------------------
+ * 2022. 5. 17.     parkjunhong77@gmail.com     최초 작성
+ * 2023. 10. 13.    parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
+ * 2024. 4. 11.     parkjunhong77@gmail.com     {@link AbstractElasticsearchService}에서 Elasticsearch Java API Client 기능을 분리.
+ * 2026. 4. 22.     parkjunhong77@gmail.com     Spring Boot:2.7.15 -> 4.0.3, Spring Framework: 5.3.29 -> 7.0.5.
  * </pre>
  * 
  * @since 2024. 4. 11.
@@ -64,7 +66,7 @@ import co.elastic.clients.transport.endpoints.BooleanResponse;
  */
 public abstract class AbstractElasticClientService extends AbstractComponent {
 
-    protected final RestClient restClient;
+    protected final Rest5Client restClient;
     protected final ElasticsearchClient esClient;
     protected final ElasticsearchAsyncClient esAsyncClient;
 
@@ -83,7 +85,9 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * @since 2024. 4. 11.
      * @version 0.3.0
      */
-    public AbstractElasticClientService(@NotNull ClientConfiguration esClientConfig) {
+    public AbstractElasticClientService(ClientConfiguration esClientConfig) {
+        AssertUtils2.notNull(esClientConfig);
+
         this.restClient = RestClients.create(esClientConfig);
         this.esClient = createElasticsearchClient(this.restClient);
         this.esAsyncClient = createElasticsearchAsyncClient(this.restClient);
@@ -97,8 +101,9 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 10. 18.        parkjunhong77@gmail.com         최초 작성
-     * 2024. 4. 11.		parkjunhong77@gmail.com			{@link AbstractElasticsearchService#createElasticsearchAsyncClient(RestClient)}에서 이관.
+     * 2023. 10. 18.    parkjunhong77@gmail.com     최초 작성
+     * 2024. 4. 11.		parkjunhong77@gmail.com		{@link AbstractElasticsearchService#createElasticsearchAsyncClient(org.springframework.web.client.RestClient)}에서 이관.
+     * 2026. 4. 22.     parkjunhong77@gmail.com     파라미터 변경. {@link org.springframework.web.client.RestClient}::5.3.29 -> {@link Rest5Client}:7.0.5
      * </pre>
      *
      * @param restClient
@@ -107,7 +112,7 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * @since 2023. 10. 18.
      * @version 0.3.0
      */
-    protected ElasticsearchAsyncClient createElasticsearchAsyncClient(@NotNull RestClient restClient) {
+    protected ElasticsearchAsyncClient createElasticsearchAsyncClient(Rest5Client restClient) {
         return RestClients.createElasticsearchAsyncClient(restClient, null);
     }
 
@@ -119,8 +124,9 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 10. 16.        parkjunhong77@gmail.com         최초 작성
-     * 2024. 4. 11.     parkjunhong77@gmail.com         {@link AbstractElasticsearchService#createElasticsearchClient(RestClient)}에서 이관.
+     * 2023. 10. 16.    parkjunhong77@gmail.com     최초 작성
+     * 2024. 4. 11.     parkjunhong77@gmail.com     {@link AbstractElasticsearchService#createElasticsearchClient(org.springframework.web.client.RestClient)}에서 이관.
+     * 2026. 4. 22.     parkjunhong77@gmail.com     파라미터 변경. {@link org.springframework.web.client.RestClient}::5.3.29 -> {@link Rest5Client}:7.0.5
      * </pre>
      *
      * @param restClient
@@ -129,7 +135,7 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * @since 2023. 10. 16.
      * @version 0.2.0
      */
-    protected ElasticsearchClient createElasticsearchClient(@NotNull RestClient restClient) {
+    protected ElasticsearchClient createElasticsearchClient(Rest5Client restClient) {
         return RestClients.createElasticsearchClient(restClient, null);
     }
 
@@ -140,9 +146,9 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 10. 13.        parkjunhong77@gmail.com         최초 작성
-     * 2023. 10. 13.        parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
-     * 2024. 4. 11.     parkjunhong77@gmail.com         {@link AbstractElasticsearchService#createElasticsearchClient(RestClient)}에서 이관.
+     * 2022. 10. 13.    parkjunhong77@gmail.com     최초 작성
+     * 2023. 10. 13.    parkjunhong77@gmail.com     Migrate from the High Level Rest Client to Java API Client.
+     * 2024. 4. 11.     parkjunhong77@gmail.com     {@link AbstractElasticsearchService#createElasticsearchClient(org.springframework.web.client.RestClient)}에서 이관.
      * </pre>
      *
      * @param indexName
@@ -153,7 +159,8 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      * @since 2022. 10. 13.
      * @version 0.2.0
      */
-    public Result<String> createIndex(@NotNull String indexName, @NotNull String source) {
+    public Result<String> createIndex(@NotBlank String indexName, @NotBlank String source) {
+        AssertUtils2.notBlanks(indexName, source);
 
         try {
             ElasticsearchIndicesClient idxClient = this.esClient.indices();
@@ -166,18 +173,19 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
             } else {
                 if (source != null) {
                     Reader sourceReader = new StringReader(source);
-                    CreateIndexResponse resCreateIndex = idxClient.create(b -> b.index(indexName).withJson(sourceReader));
+                    CreateIndexResponse resCreateIndex = idxClient
+                            .create(b -> b.index(indexName).withJson(sourceReader));
                     logger.info("* * * 'CREATE' an index, {}. info={}", indexName, resCreateIndex);
                     return Result.success(indexName);
                 } else {
-                    String failedMsg = String.format("* * * 'No' source(settins, mappings, etc) for %s. info=%s", indexName, source);
+                    String failedMsg = String.format("* * * 'No' source(settins, mappings, etc) for %s. info=%s",
+                            indexName, source);
                     logger.warn("{}", failedMsg);
                     return Result.error(failedMsg);
                 }
             }
-        } catch (ElasticsearchStatusException e) {
-            String exMsg = e.toString();
-            if (exMsg != null && exMsg.toLowerCase().contains("already exists")) {
+        } catch (ElasticsearchException e) {
+            if (e.error() != null && "resource_already_exists_exception".equals(e.error().type())) {
                 logger.debug("* * * '{}' ALREADY exist. index={}", indexName);
                 return Result.success(indexName);
             } else {
@@ -191,5 +199,4 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
             return Result.error(errMsg);
         }
     }
-
 }

@@ -27,12 +27,20 @@
 package open.commons.spring.elastic.utils;
 
 import java.lang.reflect.Field;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
+
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import open.commons.core.utils.AnnotationUtils;
 
@@ -44,18 +52,30 @@ import open.commons.core.utils.AnnotationUtils;
  */
 public class RestApiUtils {
 
-    private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final Logger logger = LoggerFactory.getLogger(RestApiUtils.class);
+
+    @SuppressWarnings("unused")
+    private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")
+            .withZone(ZoneId.systemDefault());
 
     private static final BiFunction<Field, Object, Object> _value_ = (f, o) -> {
-        boolean access = f.isAccessible();
         try {
-            f.setAccessible(true);
+            // 1. 현재 객체(o)에 대해 해당 필드(f)가 접근 가능한지 확인 (isAccessible 대체)
+            if (!f.canAccess(o)) {
+                // 2. 접근 불가 시 안전하게 권한 부여 시도 (InaccessibleObjectException 방지)
+                if (!f.trySetAccessible()) {
+                    // 모듈 시스템에 의해 강력히 캡슐화되어 접근할 수 없는 경우
+                    // 필요에 따라 로깅 후 null을 반환하거나 예외를 던집니다.
+                    return null;
+                }
+            }
+
+            // 3. 값 반환
             return f.get(o);
-        } catch (IllegalArgumentException | IllegalAccessException ignored) {
-            ignored.printStackTrace();
+
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            logger.error("", e);
             return null;
-        } finally {
-            f.setAccessible(access);
         }
     };
 
@@ -103,65 +123,57 @@ public class RestApiUtils {
      * @since 2022. 9. 2.
      * @version 0.2.0
      */
+    /**
+     * 객체의 필드값을 <code>"{이름}":값</code> 형태로 제공합니다. <br>
+     * [모던 자바 리팩토링 적용 - JDK 25]
+     */
     private static String readNavAsString(Object obj, Field f) {
 
-        String nav = null;
+        // 1. 값 먼저 추출 (이전 답변의 최적화된 _value_ 함수 사용)
+        Object rawValue = _value_.apply(f, obj);
 
-        String name = String.join(f.getName(), "\"", "\"");
-        // #2. 필드 값
-        Class<?> clazz = f.getType();
-        Object value = null;
-        // #2-1. ture/false, number
-        if (
-        // primitive type
-        clazz == boolean.class //
-                || clazz == byte.class //
-                || clazz == short.class //
-                || clazz == int.class //
-                || clazz == long.class //
-                || clazz == float.class //
-                || clazz == double.class //
-                // wrapper type
-                || clazz == Boolean.class //
-                || clazz == Byte.class //
-                || clazz == Short.class //
-                || clazz == Integer.class //
-                || clazz == Long.class //
-                || clazz == Float.class //
-                || clazz == Double.class //
-        ) {
-            value = _value_.apply(f, obj);
-        }
-        // #2-3. String, char, Character
-        if (clazz == char.class //
-                || clazz == Character.class //
-                || clazz == String.class //
-        ) {
-            value = _value_.apply(f, obj);
-            if (value != null) {
-                // 큰 따옴표로 감싸기
-                value = String.join(value.toString(), "\"", "\"");
-            }
-        }
-        // #3-2. extended number type
-        if (clazz == AtomicBoolean.class //
-                || clazz == AtomicInteger.class //
-                || clazz == AtomicLong.class //
-        ) {
-            value = _value_.apply(f, obj);
-            if (value != null) {
-                // {"value": ...} 형태
-                value = String.join("", "{", "\"value\"", ":", value.toString(), "}");
-            }
-        }
-        // #3-3. Date
-        // TODO. 개발 예정
-
-        if (value != null) {
-            nav = String.join(":", name, value.toString());
+        // 값이 없으면 직렬화 생략
+        if (rawValue == null) {
+            return null;
         }
 
-        return nav;
+        // 2. 키(Key) 포맷팅: "fieldName"
+        // (기존의 복잡한 String.join 대신 직관적인 결합 사용)
+        String namePart = "\"" + f.getName() + "\"";
+
+        // 3. 값(Value) 포맷팅: Java 21+ Pattern Matching for switch 적용
+        String valuePart = switch (rawValue) {
+
+            // #3-1. 확장 숫자형 (Number보다 먼저 매칭되어야 함)
+            case AtomicBoolean ab -> "{\"value\":" + ab.get() + "}";
+            case AtomicInteger ai -> "{\"value\":" + ai.get() + "}";
+            case AtomicLong al -> "{\"value\":" + al.get() + "}";
+
+            // #3-2. 일반 숫자 및 논리형 (기본형 int, double 등은 자동 Boxing 되어 여기서 매칭됨)
+            case Boolean b -> b.toString();
+            case Number n -> n.toString(); // Byte, Short, Integer, Long, Float, Double 통합 처리
+
+            // #3-3. 문자 및 문자열 (따옴표 래핑)
+            case Character c -> "\"" + c + "\"";
+            case CharSequence s -> "\"" + s + "\""; // String을 포함한 모든 문자열 처리
+
+            // #3-4. 레거시 Date (java.util.Date, java.sql.Timestamp 등)
+            // -> toInstant()를 호출하면 "2026-04-22T11:27:10.123Z" 형태의 ISO-8601(UTC) 문자열을 반환합니다.
+            case java.util.Date d -> "\"" + d.toInstant().toString() + "\"";
+
+            // #3-5. 모던 Date/Time (LocalDate, LocalDateTime, ZonedDateTime, Instant 등)
+            // -> 이 객체들은 TemporalAccessor를 구현하며, 고유의 toString() 자체가 완벽한 ISO-8601 규격입니다.
+            case TemporalAccessor t -> "\"" + t.toString() + "\"";
+
+            // // 🎯 [날짜 처리 - 포맷 강제 방식]
+            // case java.util.Date d -> "\"" + ISO_FORMATTER.format(d.toInstant()) + "\"";
+            // case TemporalAccessor t -> "\"" + ISO_FORMATTER.format(t) + "\"";
+
+            default -> null;
+        };
+
+        // 4. 최종 JSON Key-Value 문자열 조립
+        return (valuePart != null) ? namePart + ":" + valuePart : null;
     }
 
     /**
@@ -205,7 +217,8 @@ public class RestApiUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		parkjunhong77@gmail.com			최초 작성
+     * 2022. 9. 2.		parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 22.     parkjunohng77@gmail.com     JDK25 현행화
      * </pre>
      *
      * @param operation
@@ -213,28 +226,30 @@ public class RestApiUtils {
      * @return JSON 문자열. 단 데이터가 존재하지 않는 경우 <code>null</code>을 제공합니다.
      *
      * @since 2022. 9. 2.
-     * @version 0.2.0
+     * @version 4.0.0
      * 
      * @see #readNavAsString(Object, Field)
      */
-    public static String toNDJsonString(Object obj) {
-        // #1. header
-        String header = "{\"index\":{}}" + LINE_SEPARATOR;
-
-        // #2. 데이터 생성
-        List<Field> fields = AnnotationUtils.getAnnotatedFieldsAllHierarchy(obj, org.springframework.data.elasticsearch.annotations.Field.class);
-        String data = fields.parallelStream()//
-                .map(f -> readNavAsString(obj, f)) //
-                .filter(s -> s != null) //
-                .collect(Collectors.joining(","));
-
-        if (data == null) {
+    public static String toNDJsonString(@Nullable Object obj) {
+        if (obj == null) {
             return null;
         }
 
-        // #3. body
-        String body = String.join("", header, "{", data, "}", LINE_SEPARATOR);
+        // #1. 대상 필드 추출
+        List<Field> fields = AnnotationUtils.getAnnotatedFieldsAllHierarchy(obj,
+                org.springframework.data.elasticsearch.annotations.Field.class);
 
-        return body;
+        // #2. 데이터 생성 (순차 스트림 적용 및 메서드 레퍼런스 활용)
+        String data = fields.stream() //
+                .map(f -> readNavAsString(obj, f)).filter(Objects::nonNull) //
+                .collect(Collectors.joining(","));
+
+        if (data.isEmpty()) {
+            return null;
+        }
+
+        // #3. NDJSON 포맷 조립 (헤더 + 바디)
+        // Elasticsearch의 NDJSON(Newline Delimited JSON) 명세에 따라 '\n'으로 종료함.
+        return "{\"index\":{}}\n" + "{" + data + "}\n";
     }
 }

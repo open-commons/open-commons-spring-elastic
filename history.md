@@ -1,3 +1,9 @@
+[2026/04/22]
+- Migration: JDK, Spring Boot, Spring Framework 현행화
+  + JDK 25
+  + Spring Boot: 4.0.3
+  + Spring Framework: 7.0.5
+  
 [2025/07/24]
 - Dependencies
   + Add

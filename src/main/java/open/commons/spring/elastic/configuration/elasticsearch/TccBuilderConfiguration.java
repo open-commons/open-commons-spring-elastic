@@ -29,7 +29,7 @@ package open.commons.spring.elastic.configuration.elasticsearch;
 import java.time.Duration;
 
 import org.springframework.data.elasticsearch.client.ClientConfiguration.TerminalClientConfigurationBuilder;
-import org.springframework.http.HttpHeaders;
+import org.springframework.data.elasticsearch.support.HttpHeaders;
 
 import open.commons.core.utils.StringUtils;
 
@@ -44,9 +44,15 @@ import open.commons.core.utils.StringUtils;
  */
 public class TccBuilderConfiguration {
 
-    /** @see TerminalClientConfigurationBuilder#withBasicAuth(String, String)'s <b><code>username</code></b> */
+    /**
+     * @see TerminalClientConfigurationBuilder#withBasicAuth(String, String)'s
+     *      <b><code>username</code></b>
+     */
     protected String username;
-    /** @see TerminalClientConfigurationBuilder#withBasicAuth(String, String)'s <b><code>password</code></b> */
+    /**
+     * @see TerminalClientConfigurationBuilder#withBasicAuth(String, String)'s
+     *      <b><code>password</code></b>
+     */
     protected String password;
 
     /** @see TerminalClientConfigurationBuilder#withConnectTimeout(Duration) */

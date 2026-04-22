@@ -32,7 +32,8 @@ package open.commons.spring.elastic.configuration.elasticsearch;
  * @version 0.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class DefaultClientBuilderConfiguration extends ElasticsearchClientBuilderConfiguration<EndpointBuilderConfiguration, SccBuilderConfiguration, TccBuilderConfiguration> {
+public class DefaultClientBuilderConfiguration extends
+        ElasticsearchClientBuilderConfiguration<EndpointBuilderConfiguration, SccBuilderConfiguration, TccBuilderConfiguration> {
 
     /**
      * <br>
