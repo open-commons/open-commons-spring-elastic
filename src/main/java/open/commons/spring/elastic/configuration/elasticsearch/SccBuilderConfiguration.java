@@ -52,10 +52,8 @@ public class SccBuilderConfiguration {
      * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public SccBuilderConfiguration() {
     }
@@ -74,7 +72,6 @@ public class SccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #ssl
      */
@@ -98,7 +95,6 @@ public class SccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #ssl
      */
@@ -110,7 +106,6 @@ public class SccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */

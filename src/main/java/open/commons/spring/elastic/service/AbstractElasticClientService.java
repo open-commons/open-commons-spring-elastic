@@ -82,7 +82,6 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      *
      * @since 2024. 4. 11.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public AbstractElasticClientService(@NotNull ClientConfiguration esClientConfig) {
         this.restClient = RestClients.create(esClientConfig);
@@ -107,7 +106,6 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      *
      * @since 2023. 10. 18.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     protected ElasticsearchAsyncClient createElasticsearchAsyncClient(@NotNull RestClient restClient) {
         return RestClients.createElasticsearchAsyncClient(restClient, null);
@@ -130,7 +128,6 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      *
      * @since 2023. 10. 16.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     protected ElasticsearchClient createElasticsearchClient(@NotNull RestClient restClient) {
         return RestClients.createElasticsearchClient(restClient, null);
@@ -155,7 +152,6 @@ public abstract class AbstractElasticClientService extends AbstractComponent {
      *
      * @since 2022. 10. 13.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public Result<String> createIndex(@NotNull String indexName, @NotNull String source) {
 

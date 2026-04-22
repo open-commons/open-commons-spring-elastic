@@ -76,7 +76,6 @@ public class EndpointBuilderConfiguration {
      * <li>포맷: <host>:<port>
      * <li>예: 192.168.0.12:9200
      * </ul>
-     * 
      */
     private Set<String> connections;
 
@@ -90,10 +89,8 @@ public class EndpointBuilderConfiguration {
      * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public EndpointBuilderConfiguration() {
     }
@@ -112,7 +109,6 @@ public class EndpointBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #connections
      */
@@ -136,7 +132,6 @@ public class EndpointBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #connections
      */

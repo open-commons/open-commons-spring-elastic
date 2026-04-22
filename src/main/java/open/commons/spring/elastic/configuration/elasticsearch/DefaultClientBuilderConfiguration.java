@@ -44,10 +44,8 @@ public class DefaultClientBuilderConfiguration extends ElasticsearchClientBuilde
      * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public DefaultClientBuilderConfiguration() {
     }
@@ -56,7 +54,6 @@ public class DefaultClientBuilderConfiguration extends ElasticsearchClientBuilde
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientBuilderConfiguration#setEndpoint(open.commons.spring.elastic.configuration.elasticsearch.EndpointBuilderConfiguration)
      */
@@ -69,7 +66,6 @@ public class DefaultClientBuilderConfiguration extends ElasticsearchClientBuilde
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientBuilderConfiguration#setSecure(open.commons.spring.elastic.configuration.elasticsearch.SccBuilderConfiguration)
      */
@@ -82,7 +78,6 @@ public class DefaultClientBuilderConfiguration extends ElasticsearchClientBuilde
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see open.commons.spring.elastic.configuration.elasticsearch.ElasticsearchClientBuilderConfiguration#setTerminal(open.commons.spring.elastic.configuration.elasticsearch.TccBuilderConfiguration)
      */

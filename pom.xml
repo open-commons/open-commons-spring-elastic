@@ -5,11 +5,10 @@
   <parent>
     <groupId>io.github.open-commons</groupId>
     <artifactId>open-commons-spring-web-dependencies</artifactId>
-    <version>0.8.0-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
   <artifactId>open-commons-spring-elastic</artifactId>
-  <version>0.4.0-SNAPSHOT</version>
   <name>Open Commons for SpringData-Elastic</name>
   <description>Open Commons for (SpringData/Elastic)-Based Elasticsearch,
     Logstash, Kibana, etc .</description>
@@ -41,19 +40,10 @@
   </developers>
 
   <properties>
-    <!-- >>> begin: plugin dependencies -->
     <build.finalName>open-commons-spring-elastic-${project.version}</build.finalName>
 
-    <encoding>UTF-8</encoding>
-    <java.version>1.8</java.version>
-
-    <compile.encoding>UTF-8</compile.encoding>
-    <compile.source.version>1.8</compile.source.version>
-    <compile.target.version>1.8</compile.target.version>
-    <!-- >>> end: plugin dependencies -->
-
     <!-- >>> begin: dependencies -->
-    <open-commons-spring-web.version>0.8.0-SNAPSHOT</open-commons-spring-web.version>
+    <open-commons-spring-web.version>4.0.0-SNAPSHOT</open-commons-spring-web.version>
     <!-- <<< end: dependencies -->
   </properties>
 

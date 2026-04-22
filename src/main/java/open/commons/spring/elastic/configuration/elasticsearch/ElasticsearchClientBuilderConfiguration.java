@@ -78,7 +78,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ElasticsearchClientBuilderConfiguration() {
     }
@@ -87,7 +86,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
@@ -111,7 +109,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #endpoint
      */
@@ -134,7 +131,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #secure
      */
@@ -157,7 +153,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #terminal
      */
@@ -181,7 +176,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #endpoint
      */
@@ -202,7 +196,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #secure
      */
@@ -223,7 +216,6 @@ public abstract class ElasticsearchClientBuilderConfiguration<E extends Endpoint
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #terminal
      */

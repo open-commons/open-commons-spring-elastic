@@ -74,10 +74,8 @@ public class TccBuilderConfiguration {
      * 2021. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public TccBuilderConfiguration() {
     }
@@ -96,7 +94,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #connectTimeout
      */
@@ -119,7 +116,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #defaultHeaders
      */
@@ -142,7 +138,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #password
      */
@@ -165,7 +160,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #pathPrefix
      */
@@ -188,7 +182,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #proxy
      */
@@ -211,7 +204,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #socketTimeout
      */
@@ -234,7 +226,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #username
      */
@@ -258,7 +249,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #connectTimeout
      */
@@ -281,7 +271,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #defaultHeaders
      */
@@ -304,7 +293,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #password
      */
@@ -327,7 +315,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #pathPrefix
      */
@@ -350,7 +337,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #proxy
      */
@@ -373,7 +359,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #socketTimeout
      */
@@ -396,7 +381,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see #username
      */
@@ -408,7 +392,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */
@@ -447,7 +430,6 @@ public class TccBuilderConfiguration {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #setUsername(String)
      * @see #setPassword(String)

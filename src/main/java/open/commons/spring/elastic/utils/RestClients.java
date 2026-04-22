@@ -204,7 +204,6 @@ public class RestClients {
      *
      * @since 2023. 10. 18.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchAsyncClient createElasticsearchAsyncClient(ElasticsearchTransport transport) {
         return createElasticsearchAsyncClient(transport, null);
@@ -226,7 +225,6 @@ public class RestClients {
      *
      * @since 2023. 10. 18.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchAsyncClient createElasticsearchAsyncClient(ElasticsearchTransport transport, @Nullable TransportOptions transportOptions) {
         return new ElasticsearchAsyncClient(transport, transportOptions);
@@ -248,7 +246,6 @@ public class RestClients {
      *
      * @since 2023. 10. 18.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchAsyncClient createElasticsearchAsyncClient(RestClient restClient, JsonpMapper mapper) {
         return createElasticsearchAsyncClient(restClient, mapper, null);
@@ -271,7 +268,6 @@ public class RestClients {
      *
      * @since 2023. 10. 18.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchAsyncClient createElasticsearchAsyncClient(RestClient restClient, JsonpMapper mapper, @Nullable TransportOptions transportOptions) {
         if (mapper == null) {
@@ -297,7 +293,6 @@ public class RestClients {
      *
      * @since 2023. 10. 13.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchClient createElasticsearchClient(ElasticsearchTransport transport) {
         return createElasticsearchClient(transport, null);
@@ -319,7 +314,6 @@ public class RestClients {
      *
      * @since 2023. 10. 13.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchClient createElasticsearchClient(ElasticsearchTransport transport, @Nullable TransportOptions transportOptions) {
         return new ElasticsearchClient(transport, transportOptions);
@@ -341,7 +335,6 @@ public class RestClients {
      *
      * @since 2023. 10. 13.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchClient createElasticsearchClient(RestClient restClient, JsonpMapper mapper) {
         return createElasticsearchClient(restClient, mapper, null);
@@ -364,7 +357,6 @@ public class RestClients {
      *
      * @since 2023. 10. 13.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static ElasticsearchClient createElasticsearchClient(RestClient restClient, JsonpMapper mapper, @Nullable TransportOptions transportOptions) {
         if (mapper == null) {

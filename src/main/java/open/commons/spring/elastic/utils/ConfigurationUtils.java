@@ -71,7 +71,6 @@ public class ConfigurationUtils {
      *
      * @since 2021. 11. 15.
      * @version 0.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E extends EndpointBuilderConfiguration, S extends SccBuilderConfiguration, T extends TccBuilderConfiguration> ClientConfiguration createClientConfiguration(
             ElasticsearchClientBuilderConfiguration<E, S, T> builderConfiguration) {

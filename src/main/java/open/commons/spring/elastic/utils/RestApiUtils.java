@@ -102,7 +102,6 @@ public class RestApiUtils {
      *
      * @since 2022. 9. 2.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static String readNavAsString(Object obj, Field f) {
 
@@ -215,7 +214,6 @@ public class RestApiUtils {
      *
      * @since 2022. 9. 2.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #readNavAsString(Object, Field)
      */

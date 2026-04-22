@@ -42,9 +42,9 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
-import javax.validation.constraints.NotNull;
 
-import org.elasticsearch.client.RestClient;
+import jakarta.validation.constraints.NotNull;
+
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -59,13 +59,13 @@ import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQuery.OpType;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.Query;
+import org.springframework.web.client.RestClient;
 
 import open.commons.core.Result;
 import open.commons.core.utils.IOUtils;
 import open.commons.spring.elastic.utils.RestApiUtils;
 
 /**
- * 
  * 
  * <br>
  * 
@@ -102,7 +102,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public AbstractElasticsearchService(@NotNull ClientConfiguration esClientConfig) {
         this(esClientConfig, null);
@@ -125,7 +124,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2023. 10. 13.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public AbstractElasticsearchService(@NotNull ClientConfiguration esClientConfig, @Nullable ElasticsearchConverter esConverter) {
         super(esClientConfig);
@@ -158,7 +156,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 9. 15.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public void bulkIndex(@NotNull String url, @NotNull String filepath) throws IOException, InterruptedException {
 
@@ -193,7 +190,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> List<IndexQuery> createBulk(@NotNull Collection<T> data) {
         return data.parallelStream().map(d -> {
@@ -224,7 +220,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 10. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(@NotNull List<T> data //
             , @NotNull BiFunction<ElasticsearchOperations, List<IndexQuery>, List<IndexedObjectInformation>> bulkIndexFx) {
@@ -260,7 +255,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(@NotNull List<T> data, @NotNull Class<T> type) {
         return createBulkIndexAction(data, (esOp, queries) -> esOp.bulkIndex(queries, type));
@@ -287,7 +281,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 10. 13.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> Supplier<Result<List<IndexedObjectInformation>>> createBulkIndexAction(List<T> data, String indexName) {
         return createBulkIndexAction(data, (esOp, queries) -> esOp.bulkIndex(queries, IndexCoordinates.of(indexName)));
@@ -317,7 +310,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 9. 15.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> String createBulkJSONTempFile(@NotNull List<T> data, @NotNull String tempfilePrefix, @NotNull String tempfileSuffix) throws IOException {
         // #1. bulk JSON 문자열 생성
@@ -354,7 +346,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 9. 15.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <T> String createNDJsonString(@NotNull List<T> data) {
         return data.parallelStream()
@@ -383,7 +374,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ByQueryResponse delete(@NotNull Query query, @NotNull Class<?> clazz) {
         ElasticsearchOperations esOp = getElasticsearchOperations();
@@ -405,7 +395,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ElasticsearchOperations getElasticsearchOperations() {
         return new ElasticsearchTemplate(this.esClient, this.esConverter);
@@ -428,7 +417,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <E> List<E> search(@NotNull Query query, @NotNull Class<E> type) {
         SearchHits<E> searchHits = searchHits(query, type);
@@ -454,7 +442,6 @@ public class AbstractElasticsearchService extends AbstractElasticClientService {
      *
      * @since 2022. 5. 17.
      * @version 0.2.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public <E> SearchHits<E> searchHits(@NotNull Query query, @NotNull Class<E> type) {
         ElasticsearchOperations esOp = getElasticsearchOperations();
