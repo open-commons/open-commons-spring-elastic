@@ -201,11 +201,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <encoding>${encoding}</encoding>
-          <source>${compile.source.version}</source>
-          <target>${compile.target.version}</target>
-        </configuration>
       </plugin>
       <!-- <<< end: compile -->
       <!-- >>> begin: source -->
