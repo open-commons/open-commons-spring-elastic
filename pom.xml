@@ -100,24 +100,16 @@
 
     <!-- ********************** -->
     <!-- >>> begin: logging -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
     <!-- for llog4j-2.x: making all asynchronous loggers -->
     <dependency>
       <groupId>com.lmax</groupId>
       <artifactId>disruptor</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j2-impl</artifactId>
     </dependency>
     <!-- <<< end: logging -->
     <!-- ********************** -->
@@ -215,6 +207,12 @@
         <artifactId>maven-javadoc-plugin</artifactId>
       </plugin>
       <!-- <<< end: javadoc -->
+      <!-- >>> begin: enforce-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <!-- <<< end: enforce-->
       <!-- Maven Central Deployment plugin -->
       <plugin>
         <groupId>org.sonatype.central</groupId>
