@@ -1,3 +1,6 @@
+[2026/05/26]
+- SnapShot 배포정보를 내부 도메인으로 변경 (외부 도메인 업로드 기능 차단)
+
 [2026/04/22]
 - Migration: JDK, Spring Boot, Spring Framework 현행화
   + JDK 25
